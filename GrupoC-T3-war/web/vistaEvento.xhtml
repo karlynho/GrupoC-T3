@@ -1,0 +1,162 @@
+<ui:composition template="/WEB-INF/plantillas/general.xhtml" 
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+
+    <ui:define name="title">Evento</ui:define>
+    <ui:define name="content">
+        <h:head >
+            <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyBgMlZOMCg3IPQUgX6f_2MquEZcntBirEg" async="" defer="defer" type="text/javascript"></script>
+
+            <style>
+
+                .ui-widget-content{
+                    border:none;
+                }
+            </style>
+
+        </h:head>
+        <h:body onload="geocode()">
+            <h:form >
+                <p:commandButton value="Atrás" action="PaginaHome.xhtml" style="position: absolute; right: 5px;margin-top: 5px;z-index: 1"/>
+            </h:form>
+        <!-- Columna izquierda con eventos relacionados -->
+            <h:form id="colizq" >
+                <p:scrollPanel style="height: 500px; text-align: center;padding-top: 5px;padding-bottom: 50px;" >
+                    <h:outputText value="Eventos recomendados"/>
+                    <p:dataGrid var="ev" value="#{beanPrincipal.validos}" columns="1" id="same">
+
+                        <h:graphicImage  style="width:250px; height:200px" value="resources/#{ev.imagen.enlace}"/> <br></br>
+                        <h:commandLink action="#{controlHome.verEvento(ev)}" value="#{ev.nombre}" />
+
+
+                    </p:dataGrid>
+                </p:scrollPanel>
+            </h:form>
+        <!-- Fin columna izquierda-->
+        
+        <!-- Información sobre el evento-->
+            <p:dataGrid value="#{beanPrincipal.eventoV}" var="eve" id="eventos" style="position: absolute;margin-left: 290px;"  >
+
+                <h:panelGrid columns="2" style="width:100%;"  styleClass="outerpanelgrid"  >
+                    <p:outputPanel>
+                        <table>
+                            <tr><td><table id="tyf"  >
+                                        <tr><td> <h3><h:outputText value="#{eve.nombre}" /></h3></td> </tr>
+                                        <tr><td><h:graphicImage  style="width:400px; height:300px" value="resources/#{eve.imagen.enlace}"/></td> </tr>
+                                        <h:form>
+                                            <p:growl id="messages" showDetail="true" />
+                                            <tr><td ><h:outputText value="Puntuación:"/></td>
+                                                    <c:if test="#{!empty controlHome.usuario}"> 
+                                                        <td><p:commandButton icon="ui-icon-star" action="#{pruebaBean.MeGusta(eve)}" ajax="false" ></p:commandButton></td>
+                                                    </c:if>
+                                            </tr>      
+                                                    <tr><td><p:rating value="#{beanPrincipal.media()}" stars="5" readonly="true" /></td></tr>
+                                            </h:form>        
+                                    </table> </td>
+                                <td>  <table id="ineve">
+                                        
+                                        <tr><td><h:outputText value="Ubicación: #{eve.ubicacion}" /></td></tr>
+                                        <tr><td> <h:outputText value="Fecha de inicio: #{eve.fecha_inicio}" /></td></tr>
+                                        <tr><td> <h:outputText value="Fecha de final: #{eve.fecha_final}" /></td></tr>
+                                        <h:form>
+                                            <c:choose>
+                                                <c:when test="${beanPrincipal.eventoV.precio == 0}">
+                                                    <tr> <td><h:outputText value="Precio: Gratis" /></td></tr>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <tr> <td><h:outputText value="Precio: #{eve.precio} €" /></td></tr>
+                                                    <tr><td><h:commandLink action="vistaEvento.xhtml" value="Comprar entrada "/></td></tr>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </h:form>
+                                        <tr><td><h:outputText value="Categoria: #{eve.categoria}" /></td></tr>
+                                        <tr><td><h:form>
+                                                    <p:commandLink value="Descripción" onclick="PF('dlg1').show();" type="button" />               
+
+                                                    <p:dialog header="Descripción" widgetVar="dlg1" showEffect="pop" width="500px" height="550px">
+
+                                                        <h:graphicImage  style="width:400px; height:300px" value="resources/#{eve.imagen.enlace}"/><br></br>
+                                                        <h3>Descripción</h3>
+                                                        <h:outputText  style="font-size: small" value="#{eve.descripcion}"  />
+                                                    </p:dialog>
+                                                </h:form>
+
+
+
+                                            </td> </tr>
+                                        <tr> <td>
+                                        </td></tr>
+                                    </table></td></tr>
+                        </table>
+                    </p:outputPanel>
+                </h:panelGrid>
+            </p:dataGrid>
+            
+        <!-- Fin informacion evento -->
+
+        <!-- Ubicación y Comentarios -->
+            <p:outputPanel id="com" style="padding-top: 20px">
+                <p:dataGrid value="#{beanPrincipal.eventoV}" var="v" style="width: 100%;">
+                    <h:outputText value="Ubicación: #{v.ubicacion}" />
+                    <input type="hidden" value="#{v.ubicacion}" id="ub" />
+                    <script type="text/javascript">
+                        function geocode() {
+                            PF('geoMap').geocode(document.getElementById('ub').value);
+                        }
+                    </script>
+                    <h:form prependId="false">
+                        <p:gmap id="geoGmap" widgetVar="geoMap" center="#{pruebaBean.centerGeoMap}" zoom="15" type="HYBRID" model="#{pruebaBean.geoModel}" style="width:100%;height:200px;border-bottom: 5px;">
+                            <p:ajax event="geocode" listener="#{pruebaBean.onGeocode}" update="@this" />
+                        </p:gmap>
+                    </h:form>
+                </p:dataGrid>
+                <c:if test="#{empty controlHome.usuario and empty controlHome.periodista}"> 
+                    <h:form id="val" style="padding-top: 10px;">
+                        <p:outputLabel value="Introduzca una valoracion"/>
+                        <p:rating id="p" value="#{pruebaBean.ratinguser}" disabled="true" stars="5" cancel="false" onRate="alert('Has votado con ' + value + ' estrellas')"  />
+                        <p:inputTextarea id="c" disabled="true" placeholder="Para realizar un comentario debe de estar logeado" style="width: 100%; height: 250px" value="#{pruebaBean.text}" queryDelay="750" minQueryLength="4" />
+                        <p:commandButton value="Comentar" action="#{pruebaBean.guardarComentario()}" style="float: right;margin-top: 5px;" ajax="false" disabled="true"/>
+                    </h:form>
+                </c:if>
+
+                <c:if test="#{!empty controlHome.usuario}"> 
+                    <h:form id="val" style="padding-top: 10px;">
+                        <p:outputLabel value="Introduzca una valoracion"/>
+                        <p:rating id="p" value="#{pruebaBean.ratinguser}" stars="5" cancel="true" onRate="alert('Has votado con ' + value + ' estrellas')" />
+                        <p:message for="p" showDetail="true"/>
+                        <p:inputTextarea id="c" style="width: 100%; height: 250px" value="#{pruebaBean.text}" queryDelay="750" minQueryLength="4" />
+                        <p:message for="c" showDetail="true"/>     
+                        <p:commandButton value="Comentar" action="#{pruebaBean.guardarComentario()}" style="float: right;margin-top: 5px;" ajax="false"/>                
+                    </h:form>
+                </c:if>
+
+
+
+                <c:if test="#{not (empty beanPrincipal.eventoV.valoraciones) }">
+                    <h3 style="clear: both">Comentarios</h3>
+
+                    <p:dataGrid var="com" value="#{pruebaBean.comentarios()}"  columns="1" paginator="true"
+                                currentPageReportTemplate="{currentPage} de {totalPages}"
+                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} "
+                                rowsPerPageTemplate="6,10,15" >
+                        <h:panelGrid columns="1" style="width: 100%;" id="coment">
+                            <h:outputText value="Usuario: #{com.usuario.nombre}" style="width: 100%"/>
+                            <h:outputText value="#{com.comentario}"/>
+                            <h:form>
+                                <p:rating value="#{com.puntuacion}" stars="5" cancel="false" readonly="true"  />
+                            </h:form>
+                        </h:panelGrid>           
+                    </p:dataGrid>
+                </c:if>
+            </p:outputPanel>
+        <!-- Fin Ubicacion y comentarios -->
+        </h:body>
+
+    </ui:define>
+
+</ui:composition>

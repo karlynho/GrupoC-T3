@@ -1,0 +1,78 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="./PaginasEstilo/estiloPrincipal.css" rel="stylesheet" type="text/css" />
+        <title>
+            <ui:insert name="title">Pagina Login</ui:insert>
+        </title>
+    </h:head>
+
+    <h:body style="background: azure">
+        <c:choose>
+            <c:when test="#{empty controlHome.usuario and empty controlHome.periodista}">
+                <h:form id="login">
+                     <h:graphicImage  style="width:200px; height:100px; position: absolute; margin-top: -50px;margin-left: 30px" value="resources/sur.jpg"/>
+                    <table style="margin-left: 380px; margin-top: 10px; position: absolute">
+                        <tr>
+                            <td style="padding: 6px"><p:outputLabel value="Usuario:"></p:outputLabel></td>
+                        </tr>
+                        <tr>
+                            <td><p:outputLabel value="Contraseña:"></p:outputLabel></td>   
+                        </tr>
+                    </table>
+
+                    <table style="margin: 0 auto; margin-top:100px;">
+                        <tr>
+                            <td>
+                                <p:inputText id="usuario" value="#{login.usuario}"/>
+                                <p:message for="usuario" showDetail="true" style="font-size: small"/>  
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+
+                                <p:password id="pass" value="#{login.contrasenia}"/>
+                                <p:message for="pass" showDetail="true" style="font-size: small"/>    
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <p:commandButton value="Autenticar" action="#{login.autenticar()}" ajax="false"/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">
+                                <h:commandLink value="Registro" action="#{controlHome.registro()}"/>
+                            </td>
+                            
+                        </tr>
+                        <tr>
+                            <td>
+                                <p:link value="¿Has olvidado la contraseña?" outcome="RecuperarContraseña.xhtml"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <h:commandLink value="Acceda como invitado" action="#{controlHome.home()}"/>
+                            </td> 
+                        </tr>
+                    </table>
+                </h:form>
+            </c:when>
+            <c:otherwise>
+                <p>Debe salir de la aplicación si quiere entrar como otro usuario</p>
+            </c:otherwise>
+        </c:choose>
+    </h:body>
+</html>
+

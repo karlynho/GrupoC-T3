@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" >
+<h:head> </h:head>
+<h:body>
+  
+    <h:form>
+        
+        <c:if test="#{empty controlHome.periodista and empty controlHome.usuario}">
+        <p:outputLabel value="No esta logeado, por favor inicie sesion"/>
+            <li><h:commandLink action="#{controlHome.login()}" value="Login"/></li>
+    </c:if>
+    <c:if test="#{!empty controlHome.usuario}">
+        <p:outputLabel value="Esta zona es solo para periodistas, acceso denegado"/>
+        <br></br>
+        <p:commandButton value="Volver a pagina principal" id="volver_home" action="#{dataScrollerView.home()}" />
+    </c:if>    
+        </h:form>
+    
+    
+    <h:form>
+        
+    </h:form>
+    
+    <c:if test="#{!empty controlHome.periodista}">  
+    <h:form>
+    <p:growl id="growl" life="2000" />
+     
+    <p:commandButton value="Volver a pagina principal" id="volver" action="#{dataScrollerView.home()}" ajax="false" />
+    </h:form>
+    
+<h:form id="formularios"> 
+    <br></br>
+    <p:dataScroller  value="#{beanPrincipal.getFormularios()}" var="f" chunkSize="10" mode="inline" scrollHeight="500"   >
+        <f:facet name="header">
+            Formularios Recibidos
+        </f:facet>
+  
+        <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail"  >
+              
+            <p:outputPanel >
+                <h:graphicImage  style="width:250px; height:200px; padding-left: 500px; top: 250px; position: inherit" value="resources/#{f.img.enlace}"/> 
+                <h:panelGrid columns="2" cellpadding="4" cellspacing="10">
+                    
+                    <h:outputText value="Nombre" />
+                    <h:outputText value="#{f.nombre}" style="font-weight: bold"/>
+  
+                    <h:outputText value="Descripcion" />
+                    <h:outputText value="#{f.descripcion}" style="font-weight: bold; font-size: small"/>
+                    <h:outputText value="Categoria" />
+                    <h:outputText value="#{f.categoria}" style="font-weight: bold"/>
+                    <h:outputText value="Fecha de inicio" />
+                    <h:outputText value="#{f.fecha_inicio}" style="font-weight: bold"/>
+                    <h:outputText value="Fecha de fin" />
+                    <h:outputText value="#{f.fecha_fin}" style="font-weight: bold"/>
+                    <h:outputText value="Ubicacion" />
+                    <h:outputText value="#{f.ubicacion}" style="font-weight: bold"/>
+                    <h:outputText value="Precio" />
+                    <h:outputText value="#{f.precio}" style="font-weight: bold"/>
+                    <h:outputText value="Fecha de subida" />
+                    <h:outputText value="#{f.fecha_subida}" style="font-weight: bold "/>
+                    <h:outputText value="Subido por:" />
+                    <h:outputText value="#{f.usuario.nick}" style="font-weight: bold"/>
+                    <p:commandButton id="enviar" value="Validar" action="#{dataScrollerView.validar(f)}" ajax="false"/>
+                    <p:commandButton id="rechazar" value="Rechazar" action="#{dataScrollerView.rechazar(f)}" ajax="false"/>
+                                    
+                </h:panelGrid>
+                <p:separator />
+            </p:outputPanel>
+            
+        </h:panelGrid>
+    </p:dataScroller>
+</h:form>
+</c:if>
+</h:body>
+</html>

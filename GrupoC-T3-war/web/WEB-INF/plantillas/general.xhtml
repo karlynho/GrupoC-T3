@@ -1,0 +1,72 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="./PaginasEstilo/estiloPrincipal.css" rel="stylesheet" type="text/css" />
+        <title>
+            <ui:insert name="title">Plantilla Principal</ui:insert>
+        </title>
+    </h:head>
+    <h:body>
+        <div id="cabecera" style="width: 100%">
+            <h1> SUR </h1>       
+            <p class="Encabezado1">Todos los Eventos solo en un lugar</p>
+            <p class="Encabezado2">Encuentra y asiste a los eventos del momento</p>
+
+            <h:form id="menu">
+                <ul class="menulist">
+                    <c:if test="#{empty controlHome.usuario and empty controlHome.periodista}">
+                        <li><h:commandLink action="#{controlHome.login()}" value="Login"/></li>
+                        <li><h:commandLink action="#{controlHome.registro()}" value="Registro"/></li>
+                    </c:if>
+                    <c:if test="#{!empty controlHome.usuario}">
+                        <table>
+                            <tr>
+                                <td>
+                                    <p>¡Hola! <h:outputText value="#{controlHome.usuario}"/></p>
+                                </td>
+                                <td> <li><h:commandLink action="#{controlHome.perfil()}" value="Perfil"/></li></td>
+                                <td>
+                                     <li><h:commandLink action="#{controlHome.logout()}" value="Cerrar Sesion"/></li>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        
+                       
+                    </c:if>
+                    <c:if test="#{!empty controlHome.periodista}">
+                        <p>¡Hola! <h:outputText value="#{controlHome.periodista}"/></p>
+                        <li><h:commandLink action="#{controlHome.perfil()}" value="Perfil"/></li>
+                        <li><h:commandLink action="#{controlHome.logout()}" value="Cerrar Sesion"/></li>
+                    </c:if>
+                </ul>
+
+                <h:inputText value="#{controlHome.busqueda}" id="bus" class="BarraBusqueda"/>
+                <p:commandButton icon="ui-icon-search" action="#{controlHome.buscar()}" ajax="false" style="margin:3px;padding: 1px;" />
+                    
+                
+                <p:message for="bus" showDetail="true"/>  
+
+            </h:form>  
+        </div>
+
+        <div id="content">
+            <ui:insert name="content">Content</ui:insert>
+        </div>
+
+    </h:body>
+    <div id="piedePagina">
+        <h:graphicImage style="width: 100px; height: 50px; margin-top: -0px" value="resources/starlite.jpg"/>
+        <h:graphicImage style="width: 100px; height: 50px; margin-left: 500px; margin-top: -0px" value="resources/nh.jpg"/>
+        <h:graphicImage style="width: 100px; height: 50px; margin-left: 500px; margin-top: -0px" value="resources/tickermaster.jpg"/>
+
+    </div>
+
+</html>

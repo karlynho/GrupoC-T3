@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Recuperar contraseña</title>
+    </h:head>
+    <h:body>
+        <h:form>
+        <p:commandButton value="Volver a pagina principal" id="volver_home" action="#{recuperarPass.home()}" ajax="false" />
+        </h:form>
+        <c:if test="#{empty controlHome.usuario and empty controlHome.periodista}">
+            <br></br>
+            <h:form id="recuperar_pass" style="padding-left: 100px;">
+                <p:outputLabel value="Correo: ">
+                    <p:inputText id="correo" value="#{recuperarPass.email}"/>
+                    <p:message for="correo" showDetail="true" style="font-size: small"/>
+                    <p:commandButton id="reenviar" value="Recuperar" action="#{recuperarPass.recuperar()}" ajax="false"/>
+                    <p:message for="reenviar" showDetail="true" style="font-size: small"/>
+
+                </p:outputLabel>
+            </h:form>
+        </c:if>
+        <c:if test="#{!empty controlHome.usuario or !empty controlHome.periodista}">
+            <p>Ya esta logeado</p>
+        </c:if>
+    </h:body>
+</html>
+

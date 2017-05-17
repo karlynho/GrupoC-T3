@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" >
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Formulario</title>
+    </h:head>
+    <h:body>
+        <h:form id ="myform" enctype="multipart/form-data" rendered="#{empty rellenarFormulario.img.fileName or empty rellenarFormulario.nombre or empty rellenarFormulario.descripcion or empty rellenarFormulario.categoria or empty rellenarFormulario.precio or empty rellenarFormulario.ubicacion or empty
+                                                                       rellenarFormulario.fecha_inicio or empty rellenarFormulario.fecha_fin or rellenarFormulario.fecha_inicio.after(rellenarFormulario.fecha_fin) }" >
+
+            <c:if test="#{empty controlHome.usuario and empty controlHome.periodista}">
+                <h:form>
+                    <p:outputLabel value="No esta logeado, por favor registrese o inicie sesion"/>
+                    <li><h:commandLink action="#{controlHome.login()}" value="Login"/></li>
+                    <li><h:commandLink action="#{controlHome.registro()}" value="Registro"/></li>
+                </h:form>
+            </c:if>    
+
+            <c:if test="#{!empty controlHome.usuario or !empty controlHome.periodista}">    
+                 
+                <p:commandButton value="Volver a pagina principal" id="volver_home" action="#{rellenarFormulario.home()}" ajax="false" />
+                
+
+                <div style="margin: 20px 50px 0px 50px; background-color: #66ccff; height: 660px; width: 990px; border: 4px solid #006; -webkit-border-radius: 7px; padding: 15px">
+                    <div style="color: black">A continuación rellene los campos del evento, no deje campos vacíos.</div>
+                    <br> </br>
+
+
+
+                    <p:panel id="panel" style="background: #66ccff; border: none"  >
+
+                        <h:panelGrid id="grid" columns="3" cellpadding="5">
+                            <p:outputLabel style=" font-size: small" value="Nombre:">
+                                <p:inputText id="nombre" size="30" value="#{rellenarFormulario.nombre}" required=""/>
+                                <p:commandButton id="comprobar" ajax="false" value="Comprobar" actionListener="#{rellenarFormulario.comprobar}"/>
+                                <p:message for="nombre" style="font-size: small" showDetail="true"/>
+                            </p:outputLabel>
+                        </h:panelGrid>
+
+                        <br> </br>
+                        <p:outputLabel style=" font-size: small" value="Descripción:" />
+                        <br> </br>
+                        <p:inputTextarea rows="5" cols="30" value="#{rellenarFormulario.descripcion}" required="" counter="display" maxlength="150" autoResize="false"/>
+
+                        <p:growl id="msgs" showDetail="true" />
+                        <h:panelGrid columns="2" cellpadding="5" style="padding-left: 509px; position: absolute; top: 240px;">
+                            <p:outputLabel style=" font-size: small" for="datetime1" value="Fecha Inicio:" />
+                            <p:calendar id="datetime1" value="#{rellenarFormulario.fecha_inicio}" pattern="MM/dd/yyyy HH:mm:ss" required="" showOn="button"/>
+                        </h:panelGrid>
+
+                        <p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
+                            <p:panelGrid id="display" columns="2" columnClasses="label,value">
+                                <h:outputText value="Fecha Inicio:" />
+                                <h:outputText value="#{rellenarFormulario.fecha_inicio}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                </h:outputText>
+                            </p:panelGrid>
+                        </p:dialog>
+                        <br> </br>
+
+                        <h:panelGrid columns="2" cellpadding="5" style="padding-left: 509px; top: 390px; position: absolute"  >
+                            <p:outputLabel style=" font-size: small" for="datetime2" value="Fecha Fin:" />
+                            <p:calendar id="datetime2" value="#{rellenarFormulario.fecha_fin}" pattern="MM/dd/yyyy HH:mm:ss" required="" showOn="button" />
+                        </h:panelGrid>
+
+                        <p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
+                            <p:panelGrid id="display2" columns="2" columnClasses="label,value">
+                                <h:outputText  value="Fecha Fin:" />
+                                <h:outputText value="#{rellenarFormulario.fecha_fin}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                </h:outputText>
+                            </p:panelGrid>
+                        </p:dialog>
+
+                        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" columnClasses="label, value">
+                            <p:outputLabel style=" font-size: small" for="Categoria" value="Categoria:" />
+                            <p:selectOneListbox style=" font-size: small" id="Categoria" value="#{rellenarFormulario.categoria}" required="">
+                                <f:selectItem itemLabel="Charlas" itemValue="Charlas" />
+                                <f:selectItem itemLabel="Conferencias" itemValue="Conferencias" />
+                                <f:selectItem itemLabel="Conciertos" itemValue="Conciertos" />
+                                <f:selectItem itemLabel="Espectaculo" itemValue="Espectaculo" />
+                                <f:selectItem itemLabel="Exposicion" itemValue="Exposicion" />
+                                <f:selectItem itemLabel="Ferias y Fiestas" itemValue="Ferias y Fiestas" />
+                                <f:selectItem itemLabel="Deportivo" itemValue="Deportivo" />
+                                <f:selectItem itemLabel="Gastronomia" itemValue="Gastronomia"/>
+                                <f:selectItem itemLabel="Moda" itemValue="Moda"/>
+                            </p:selectOneListbox>
+                        </h:panelGrid>
+
+                        <p:outputLabel style=" font-size: small" value="Ubicación:" />
+                        <p:inputText size="50" value="#{rellenarFormulario.ubicacion}" required=""/>
+                        <br> </br>
+
+
+                        <h:panelGrid columns="1">
+                            <p:outputLabel style=" font-size: small" value="Precio:">
+                                <p:inputNumber id="n" size="5" value="#{rellenarFormulario.precio}" required="" symbol=" €"/>
+                                <p:slider for="n"/>
+                            </p:outputLabel>
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="2" cellpadding="5" style="padding-left: 509px; top: 180px; position: absolute">
+                            <p:outputLabel style=" font-size: small" value="Adjunte una imagen:">
+                                <p:fileUpload id="img" value="#{rellenarFormulario.img}" mode="simple" skinSimple="true" label="Subir"  />
+                                <p:message for="img" style="font-size: small" showDetail="true"/>
+                            </p:outputLabel>
+
+                        </h:panelGrid>
+                        <h:panelGrid columns="2" cellpadding="5" style="padding-left: 640px; top: 690px; position: absolute">
+                            <c:if test="#{!empty controlHome.usuario and empty controlHome.periodista}">
+                                <p:commandButton id="enviar" value="Enviar" action="#{rellenarFormulario.enviar()}" ajax="false"/>
+                            </c:if>
+                            <c:if test="#{empty controlHome.usuario and !empty controlHome.periodista}">
+                                <p:commandButton id="enviar" value="Crear Evento" action="#{rellenarFormulario.enviar()}" ajax="false"/>
+                            </c:if>
+                            <p:commandButton value="Resetear" >
+                                <p:ajax update="panel" resetValues="true" />
+                            </p:commandButton>
+                        </h:panelGrid>
+                    </p:panel>
+                </div>
+            </c:if>
+        </h:form>
+    </h:body>
+</html>

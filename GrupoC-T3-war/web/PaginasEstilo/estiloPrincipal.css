@@ -1,0 +1,108 @@
+
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 21-abr-2017, 11:25:07
+    Author     : steven
+*/
+
+#cabecera {
+    background: url('EVENTOS.jpg') no-repeat;
+    width: 100%;
+    height:400px;
+    padding: 0;
+    margin: 0;
+}
+
+#p_outputLabelid{
+    font-size: medium;
+}
+
+h1{
+    color: darkblue;
+    text-decoration: underline ;
+    position: absolute;
+    font-size: 90px;
+    margin-left: 30px;
+   
+}
+
+.Encabezado1{
+    position: absolute;
+    color: white;
+    margin-top: 150px;
+    margin-left: 350px; 
+    font: bold 250% sans-serif;
+}
+
+.Encabezado2{
+    position: absolute;
+    color: white;
+    margin-top: 200px;
+    margin-left: 525px; 
+    font: bold 100% sans-serif;
+}
+
+ul.menulist{
+    top:30px;
+    position: absolute;
+    right: 10px;
+}
+
+ul.menulist li{
+    list-style: none;
+    display:inline;
+    margin: 1em;  
+}
+
+.BarraBusqueda{
+    width: 670px;
+    height: 20px;
+    margin-top:300px;
+    margin-left: 350px;
+}
+
+.eventos{
+    border:none;
+ 
+  
+}
+.eventos2{
+   border:none;
+   
+  
+}
+
+
+#eventos, #panel, #colizq,#tyf{
+    float:left;
+}
+
+
+#same{
+   border:none;
+}
+#com{
+    clear: both;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#Bt{
+    float: left;
+    padding: 500px;
+    border-right: 100px;
+}
+
+#cuerpoLogin{
+    background: blue;
+}
+.ui-widget-content{
+    border:0 none white ;
+}
+
