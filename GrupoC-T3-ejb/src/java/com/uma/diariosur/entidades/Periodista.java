@@ -37,10 +37,10 @@ public class Periodista implements Serializable {
     private String ambito;
 
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "Periodista")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "periodista")
     private List<Evento> eventos;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "Periodista")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "periodista")
     private List<Formulario> formulario;
 
     public static long getSerialVersionUID() {
