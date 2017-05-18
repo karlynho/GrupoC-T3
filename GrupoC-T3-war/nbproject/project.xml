@@ -8,6 +8,7 @@
             <web-module-libraries>
                 <library dirs="100">
                     <file>${reference.GrupoC-T3-ejb.dist}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
                     <file>${file.reference.commons-fileupload-1.3.2.jar}</file>
@@ -38,6 +39,7 @@
                 <root id="test.src.dir"/>
             </test-roots>
         </data>
+        <libraries xmlns="http://www.netbeans.org/ns/cdnjs-libraries/1"/>
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
             <reference>
                 <foreign-project>GrupoC-T3-ejb</foreign-project>
