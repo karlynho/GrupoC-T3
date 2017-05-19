@@ -35,7 +35,7 @@ public class Imagen implements Serializable {
         this.enlace = enlace;
     }
     
-    @ManyToOne
+    @OneToOne
     private Evento evento;
     @OneToOne
     private Formulario f;

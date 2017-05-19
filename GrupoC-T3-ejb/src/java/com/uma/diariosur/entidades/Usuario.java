@@ -37,13 +37,13 @@ public class Usuario implements Serializable {
     private String nombreUsuario;
     
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "Usuario")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     private List<Valoracion> valoraciones;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "Usuario")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     private List<Formulario> formulario;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "Usuario")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     private List<Megusta> megusta;
 
 
