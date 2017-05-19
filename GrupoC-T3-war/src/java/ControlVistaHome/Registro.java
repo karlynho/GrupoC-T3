@@ -6,10 +6,10 @@
 package ControlVistaHome;
 
 import BeanPrincipal.BeanPrincipal;
-import com.uma.diariosur.modelo.Megusta;
+import com.uma.diariosur.entidades.Megusta;
+import com.uma.diariosur.entidades.Usuario;
+import com.uma.diariosur.entidades.Valoracion;
 
-import com.uma.diariosur.modelo.Usuario;
-import com.uma.diariosur.modelo.Valoracion;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

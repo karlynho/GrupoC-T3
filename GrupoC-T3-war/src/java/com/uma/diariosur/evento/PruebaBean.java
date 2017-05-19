@@ -7,11 +7,10 @@
 package com.uma.diariosur.evento;
 import BeanPrincipal.BeanPrincipal;
 import ControlVistaHome.ControlHome;
-import com.uma.diariosur.modelo.Evento;
-import com.uma.diariosur.modelo.Megusta;
+import com.uma.diariosur.entidades.Evento;
+import com.uma.diariosur.entidades.Megusta;
+import com.uma.diariosur.entidades.Valoracion;
 import javax.inject.Named;
-import com.uma.diariosur.modelo.Valoracion;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;

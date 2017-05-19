@@ -8,8 +8,8 @@ package ControlVistaHome;
 
 
 import BeanPrincipal.BeanPrincipal;
-import com.uma.diariosur.modelo.Periodista;
-import com.uma.diariosur.modelo.Usuario;
+import com.uma.diariosur.entidades.Periodista;
+import com.uma.diariosur.entidades.Usuario;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;

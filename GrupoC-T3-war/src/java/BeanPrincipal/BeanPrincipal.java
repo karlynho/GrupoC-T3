@@ -6,13 +6,15 @@
 package BeanPrincipal;
 
 import ControlVistaHome.ControlHome;
-import com.uma.diariosur.modelo.Evento;
-import com.uma.diariosur.modelo.Formulario;
-import com.uma.diariosur.modelo.Imagen;
-import com.uma.diariosur.modelo.Megusta;
-import com.uma.diariosur.modelo.Periodista;
-import com.uma.diariosur.modelo.Usuario;
-import com.uma.diariosur.modelo.Valoracion;
+import com.uma.diariosur.entidades.Evento;
+import com.uma.diariosur.entidades.Formulario;
+import com.uma.diariosur.entidades.Imagen;
+import com.uma.diariosur.entidades.Megusta;
+import com.uma.diariosur.entidades.Periodista;
+import com.uma.diariosur.entidades.Usuario;
+import com.uma.diariosur.entidades.Valoracion;
+
+
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;

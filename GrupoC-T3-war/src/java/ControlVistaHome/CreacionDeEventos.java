@@ -7,8 +7,8 @@
 package ControlVistaHome;
 
 import BeanPrincipal.BeanPrincipal;
-import com.uma.diariosur.modelo.Evento;
-import com.uma.diariosur.modelo.Valoracion;
+import com.uma.diariosur.entidades.Evento;
+
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;

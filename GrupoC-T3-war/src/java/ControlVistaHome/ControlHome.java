@@ -6,10 +6,12 @@
  */
 package ControlVistaHome;
 import BeanPrincipal.BeanPrincipal;
-import com.uma.diariosur.modelo.Evento;
-import com.uma.diariosur.modelo.Periodista;
+import com.uma.diariosur.entidades.Evento;
+import com.uma.diariosur.entidades.Periodista;
+import com.uma.diariosur.entidades.Usuario;
+
 import javax.inject.Named;
-import com.uma.diariosur.modelo.Usuario;
+
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
