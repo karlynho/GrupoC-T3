@@ -7,11 +7,11 @@ package com.uma.diariosur.rellenarformulario;
 
 import BeanPrincipal.BeanPrincipal;
 import ControlVistaHome.ControlHome;
-import com.uma.diariosur.modelo.Evento;
-import com.uma.diariosur.modelo.Formulario;
-import com.uma.diariosur.modelo.Imagen;
-import com.uma.diariosur.modelo.Usuario;
-import com.uma.diariosur.modelo.Valoracion;
+import com.uma.diariosur.entidades.Evento;
+import com.uma.diariosur.entidades.Formulario;
+import com.uma.diariosur.entidades.Imagen;
+import com.uma.diariosur.entidades.Megusta;
+import com.uma.diariosur.entidades.Valoracion;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -20,20 +20,16 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
-import java.text.SimpleDateFormat;
-import com.uma.diariosur.modelo.Megusta;
-import java.util.List;
+
 import java.util.ArrayList;
 
 import java.util.Date;
 import java.util.List;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.primefaces.model.UploadedFile;
-import javax.faces.view.ViewScoped;
+
 import javax.inject.Inject;
-import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 /**
  *

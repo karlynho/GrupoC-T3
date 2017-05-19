@@ -7,9 +7,8 @@ package com.uma.diariosur.megusta;
 
 import BeanPrincipal.BeanPrincipal;
 import ControlVistaHome.ControlHome;
-import com.uma.diariosur.modelo.Evento;
-import com.uma.diariosur.modelo.Megusta;
-import com.uma.diariosur.modelo.Usuario;
+import com.uma.diariosur.entidades.Megusta;
+
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;

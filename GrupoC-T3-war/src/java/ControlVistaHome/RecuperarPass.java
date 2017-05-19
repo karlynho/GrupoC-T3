@@ -6,7 +6,6 @@
 package ControlVistaHome;
 
 import BeanPrincipal.BeanPrincipal;
-import com.uma.diariosur.modelo.Usuario;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.inject.Named;

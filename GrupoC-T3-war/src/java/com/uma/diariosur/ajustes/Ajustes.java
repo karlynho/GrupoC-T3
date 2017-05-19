@@ -7,7 +7,7 @@ package com.uma.diariosur.ajustes;
 
 import BeanPrincipal.BeanPrincipal;
 import ControlVistaHome.ControlHome;
-import com.uma.diariosur.modelo.Usuario;
+import com.uma.diariosur.entidades.Usuario;
 import java.io.Serializable;
 import javax.inject.Named;
 import javax.faces.application.FacesMessage;
