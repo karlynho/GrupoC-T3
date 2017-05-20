@@ -59,7 +59,7 @@ public class NegocioCarlos implements NegocioCarlosLocal {
         try{
             userTxn.begin();
             em.persist(f);
-           // em.merge(im);
+           //em.merge(f.getUsuario());
             userTxn.commit();
 
         } catch(Throwable e){

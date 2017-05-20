@@ -53,10 +53,10 @@ public class Formulario implements Serializable {
         this.Imagen_ID = Imagen_ID;
     }
     
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Usuario usuario;
     
-    @ManyToOne
+    @ManyToOne (cascade = {CascadeType.ALL})
     private Periodista periodista;
     
      public static long getSerialVersionUID() {
