@@ -21,9 +21,10 @@ import javax.ejb.Local;
 public interface NegocioCarlosLocal {
     
     List<Formulario> listarFormulario();
-    void crearFormulario(String nombre, String descripcion, String categoria, String ubicacion,
-            Double precio, Date fecha_ini, Date fecha_fin, Imagen img, Usuario u);
     void rechazarFormulario(Integer id);
     void validarFormulario(Integer id, Periodista periodista);
+    void crearFormulario(String nombre, String descripcion, String categoria, String ubicacion,
+            Double precio, Date fecha_ini, Date fecha_fin, Imagen img, Usuario u);
     void crearImagen(String enlace, String tipo);
+    void crearUsuario(Usuario u);
 }

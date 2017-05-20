@@ -26,7 +26,6 @@ public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private String nick;
     private String nombre;
     private String apellidos;
@@ -34,16 +33,15 @@ public class Usuario implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fecha_nacimiento;
     private String password;
-    private String nombreUsuario;
     
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "usuario")
     private List<Valoracion> valoraciones;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "usuario")
     private List<Formulario> formulario;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "usuario")
     private List<Megusta> megusta;
 
 

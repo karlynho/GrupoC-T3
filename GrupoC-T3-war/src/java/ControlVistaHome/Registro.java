@@ -9,6 +9,7 @@ import BeanPrincipal.BeanPrincipal;
 import com.uma.diariosur.entidades.Megusta;
 import com.uma.diariosur.entidades.Usuario;
 import com.uma.diariosur.entidades.Valoracion;
+import com.uma.diariosur.negocio.NegocioCarlosLocal;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -33,6 +34,7 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.util.Properties;
+import javax.ejb.EJB;
 
 /**
  *
@@ -53,6 +55,9 @@ public class Registro {
     private String fecha_nacimiento;
     private String emailrepas;
 
+    @EJB
+    private NegocioCarlosLocal nc;
+    
     public String getEmailrepas() {
         return emailrepas;
     }
@@ -192,7 +197,7 @@ public class Registro {
         usuario.setMegusta(megusta);
         usuario.setValoraciones(valoracions);
 
-        bnp.añadirUsuario(usuario);
+        nc.crearUsuario(usuario);/**/
 
         String correoEnvia = "diariosur7@gmail.com";
         String claveCorreo = "diariosur12";

@@ -37,11 +37,11 @@ public class NegocioCarlos implements NegocioCarlosLocal {
         
         Query q = em.createQuery("SELECT f from Formulario f");
         formularios = q.getResultList();
-        
+        System.out.println("seee "+ formularios.size());
         return formularios;
     }
 
-    @Override
+   @Override
     public void crearFormulario(String nombre, String descripcion, String categoria, String ubicacion, Double precio, Date fecha_ini, Date fecha_fin, Imagen img, Usuario u) {
         
         Formulario form = new Formulario();
@@ -114,5 +114,10 @@ public class NegocioCarlos implements NegocioCarlosLocal {
         
         em.persist(img);
         
+    }
+
+    @Override
+    public void crearUsuario(Usuario u) {
+        em.persist(u);
     }
 }

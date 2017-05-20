@@ -5,6 +5,7 @@ package com.uma.diariosur.formularios;
 import ControlVistaHome.ControlHome;
 import com.uma.diariosur.entidades.Formulario;
 import com.uma.diariosur.negocio.NegocioCarlos;
+import com.uma.diariosur.negocio.NegocioCarlosLocal;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,19 +19,20 @@ import javax.inject.Inject;
 public class DataScrollerView implements Serializable {
       
     @EJB
-    private NegocioCarlos nc;
+    private NegocioCarlosLocal nc;
     
     @Inject
     private ControlHome ctrlhome;
-    private List<Formulario> formularios;
+    private List<Formulario> forms;
 
-    public NegocioCarlos getNc() {
-        return nc;
+    public List<Formulario> getForms() {
+        return forms;
     }
 
-    public void setNc(NegocioCarlos nc) {
-        this.nc = nc;
+    public void setForms(List<Formulario> forms) {
+        this.forms = forms;
     }
+
 
     public ControlHome getCtrlhome() {
         return ctrlhome;
@@ -41,14 +43,10 @@ public class DataScrollerView implements Serializable {
     }
   
     public DataScrollerView() {
-        
+        forms = new ArrayList();
+        forms= nc.listarFormulario();
     }
 
-    public List<Formulario> getFormularios(){
-       formularios = new ArrayList<>();
-       formularios = nc.listarFormulario();
-       return formularios;
-    }
     
     public String home(){
         return "PaginaHome.xhtml";
