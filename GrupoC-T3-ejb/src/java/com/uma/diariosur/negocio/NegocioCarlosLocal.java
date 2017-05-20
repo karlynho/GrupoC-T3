@@ -5,11 +5,11 @@
  */
 package com.uma.diariosur.negocio;
 
+import com.uma.diariosur.entidades.Evento;
 import com.uma.diariosur.entidades.Formulario;
 import com.uma.diariosur.entidades.Imagen;
 import com.uma.diariosur.entidades.Periodista;
 import com.uma.diariosur.entidades.Usuario;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -23,8 +23,7 @@ public interface NegocioCarlosLocal {
     List<Formulario> listarFormulario();
     void rechazarFormulario(Integer id);
     void validarFormulario(Integer id, Periodista periodista);
-    void crearFormulario(String nombre, String descripcion, String categoria, String ubicacion,
-            Double precio, Date fecha_ini, Date fecha_fin, Imagen img, Usuario u);
-    void crearImagen(String enlace, String tipo);
+    void crearFormulario(Formulario f);
+    void crearImagen(Imagen img);
     void crearUsuario(Usuario u);
 }

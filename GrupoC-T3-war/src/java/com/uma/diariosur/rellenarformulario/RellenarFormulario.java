@@ -12,6 +12,7 @@ import com.uma.diariosur.entidades.Formulario;
 import com.uma.diariosur.entidades.Imagen;
 import com.uma.diariosur.entidades.Megusta;
 import com.uma.diariosur.entidades.Valoracion;
+import com.uma.diariosur.negocio.NegocioCarlosLocal;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 
 import java.util.Date;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.primefaces.model.UploadedFile;
@@ -47,6 +49,9 @@ public class RellenarFormulario implements Serializable{
     private UploadedFile img;
     private String ubicacion;
     private Double precio;
+    
+    @EJB
+    private NegocioCarlosLocal nc;
     
     @Inject 
     private ControlHome ctrlhome;
@@ -109,11 +114,11 @@ public class RellenarFormulario implements Serializable{
 
             
             String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
-            String path_aux = path.substring(0, path.lastIndexOf("build"));
+        //    String path_aux = path.substring(0, path.lastIndexOf("build"));
             
             
-
-            OutputStream output = new FileOutputStream(new File(path_aux.concat("web//resources"), filename));
+            OutputStream output = new FileOutputStream(new File("C:\\Users\\Carlos\\Desktop\\Informatica", filename));
+            //OutputStream output = new FileOutputStream(new File(path_aux.concat("web//resources"), filename));
             aux_ext = ext;
         
         try {
@@ -236,6 +241,7 @@ public class RellenarFormulario implements Serializable{
                     Imagen im = new Imagen();
                     im.setEnlace(img_aux);
                     im.setTipo(aux_ext);
+                    nc.crearImagen(im);
                     
                    
                     if(ctrlhome.getUsuario()!=null){
@@ -250,10 +256,9 @@ public class RellenarFormulario implements Serializable{
                         form.setUsuario(ctrlhome.getUsuario());
                         form.setEstado("pendiente");
                         form.setFecha_subida(new Date());
-                        form.setImg(im);
-                        im.setF(form);
-                        form.setImg(im);
-                        bn.addForm(form);
+                        im.setFormulario_ID(form);
+                        form.setImagen_ID(im);
+                        nc.crearFormulario(form);
                     }
                     
                     if(ctrlhome.getPeriodista()!=null){
@@ -267,7 +272,7 @@ public class RellenarFormulario implements Serializable{
                         bn.addEvent(ev);
                     }
                     
-                    bn.addImage(im);
+                    
            
                 return "PaginaHome.xhtml";
         }
