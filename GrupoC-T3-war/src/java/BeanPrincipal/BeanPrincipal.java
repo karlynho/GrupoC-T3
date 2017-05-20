@@ -536,8 +536,8 @@ public class BeanPrincipal implements Serializable{
             f.setFecha_subida(new Date());
             f.setEstado("pendiente");
             f.setUsuario(u);
-            f.setImg(i5);
-            i5.setF(f);
+            f.setImagen_ID(i5);
+            i5.setFormulario_ID(f);
             formularios.add(f);
         
             
@@ -555,8 +555,8 @@ public class BeanPrincipal implements Serializable{
             f1.setFecha_subida(new Date());
             f1.setEstado("pendiente");
             f1.setUsuario(u);
-            f1.setImg(i6);
-            i6.setF(f1);
+            f1.setImagen_ID(i6);
+            i6.setFormulario_ID(f1);
             formularios.add(f1);
             
         Formulario f2 = new Formulario();
@@ -572,8 +572,8 @@ public class BeanPrincipal implements Serializable{
             f2.setFecha_subida(new Date());
             f2.setEstado("pendiente");
             f2.setUsuario(u);
-            f2.setImg(i7);
-            i7.setF(f2);
+            f2.setImagen_ID(i7);
+            i7.setFormulario_ID(f2);
             formularios.add(f2);
         
         

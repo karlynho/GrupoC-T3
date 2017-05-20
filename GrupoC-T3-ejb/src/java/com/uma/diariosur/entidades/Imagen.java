@@ -6,11 +6,12 @@
 package com.uma.diariosur.entidades;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 /**
@@ -26,6 +27,11 @@ public class Imagen implements Serializable {
     private Integer id;
     private String tipo;
     private String enlace;
+    @OneToOne(optional = true)
+    private Evento evento;
+    @OneToOne(optional = true, cascade = CascadeType.MERGE)
+    @JoinColumn(name="Formulario_ID")
+    private Formulario Formulario_ID;
 
     public String getEnlace() {
         return enlace;
@@ -35,11 +41,6 @@ public class Imagen implements Serializable {
         this.enlace = enlace;
     }
     
-    @OneToOne
-    private Evento evento;
-    @OneToOne
-    private Formulario f;
-
     public Evento getEvento() {
         return evento;
     }
@@ -48,12 +49,12 @@ public class Imagen implements Serializable {
         this.evento = evento;
     }
 
-    public Formulario getF() {
-        return f;
+    public Formulario getFormulario_ID() {
+        return Formulario_ID;
     }
 
-    public void setF(Formulario f) {
-        this.f = f;
+    public void setFormulario_ID(Formulario Formulario_ID) {
+        this.Formulario_ID = Formulario_ID;
     }
 
     

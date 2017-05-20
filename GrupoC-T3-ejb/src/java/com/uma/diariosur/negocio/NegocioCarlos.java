@@ -13,22 +13,33 @@ import com.uma.diariosur.entidades.Periodista;
 import com.uma.diariosur.entidades.Usuario;
 import com.uma.diariosur.entidades.Valoracion;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.Resource;
+import javax.ejb.SessionContext;
+import javax.ejb.Stateful;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.SystemException;
+import javax.transaction.UserTransaction;
 
 /**
  *
  * @author Carlos
  */
 @Stateless
+@TransactionManagement(TransactionManagementType.BEAN)
 public class NegocioCarlos implements NegocioCarlosLocal {
 
     @PersistenceContext(name = "GrupoC-T3-ejbPU")
     private EntityManager em;
+    @Resource
+    private SessionContext sessionContext;
     List<Formulario> formularios;
     
     @Override
@@ -42,24 +53,25 @@ public class NegocioCarlos implements NegocioCarlosLocal {
     }
 
    @Override
-    public void crearFormulario(String nombre, String descripcion, String categoria, String ubicacion, Double precio, Date fecha_ini, Date fecha_fin, Imagen img, Usuario u) {
+    public void crearFormulario(Formulario f) {
+       UserTransaction userTxn = sessionContext.getUserTransaction();
         
-        Formulario form = new Formulario();
-        form.setNombre(nombre);
-        form.setDescripcion(descripcion);
-        form.setCategoria(categoria);
-        form.setPrecio(precio);
-        form.setFecha_inicio(fecha_ini);
-        form.setFecha_fin(fecha_fin);
-        form.setImg(img);
-        form.setUsuario(u);
-        form.setFecha_subida(new Date());
-        form.setEstado("pendiente");
-       
-        em.persist(form);
+        try{
+            userTxn.begin();
+            em.persist(f);
+           //em.merge(f.getUsuario());
+            userTxn.commit();
+
+        } catch(Throwable e){
+            try {
+                //userTxn.rollback(); //-- Include this in try-catch 
+            } catch (IllegalStateException ex) {
+                Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SecurityException ex) {
+                Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+  }
         
-        img.setF(form);
-        em.merge(img);
         
     }
 
@@ -70,7 +82,7 @@ public class NegocioCarlos implements NegocioCarlosLocal {
             System.out.println("Ese formulario no esta en la BD");
         }
         else{
-            Imagen img = em.find(Imagen.class, f.getImg().getId());
+            Imagen img = em.find(Imagen.class, f.getImagen_ID().getId());
             em.remove(f);
             em.remove(img);
         }
@@ -91,7 +103,7 @@ public class NegocioCarlos implements NegocioCarlosLocal {
             e.setUbicacion(f.getUbicacion());
             e.setFecha_inicio(f.getFecha_inicio());
             e.setFecha_final(f.getFecha_subida());
-            e.setImagen(f.getImg());
+            e.setImagen(f.getImagen_ID());
             e.setPeriodista(periodista);
             List<Valoracion> v_vacia = new ArrayList();
             e.setValoraciones(v_vacia);
@@ -99,7 +111,7 @@ public class NegocioCarlos implements NegocioCarlosLocal {
             e.setMeGusta(m_gusta);
             em.persist(e);
            
-            Imagen img = em.find(Imagen.class, f.getImg().getId());
+            Imagen img = em.find(Imagen.class, f.getImagen_ID().getId());
             img.setEvento(e);
             em.merge(img);
         }
@@ -107,17 +119,54 @@ public class NegocioCarlos implements NegocioCarlosLocal {
     }
 
     @Override
-    public void crearImagen(String enlace, String tipo) {
-        Imagen img = new Imagen();
-        img.setTipo(tipo);
-        img.setEnlace(enlace);
+    public void crearImagen(Imagen img) {
+        UserTransaction userTxn = sessionContext.getUserTransaction();
         
-        em.persist(img);
+        try{
+            userTxn.begin();
+            em.persist(img);
+            
+            userTxn.commit();
+
+        } catch(Throwable e){
+            try {
+                userTxn.rollback(); //-- Include this in try-catch 
+            } catch (IllegalStateException ex) {
+                Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SecurityException ex) {
+                Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SystemException ex) {
+                Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+  }
+        
         
     }
 
     @Override
     public void crearUsuario(Usuario u) {
-        em.persist(u);
-    }
+        UserTransaction userTxn = sessionContext.getUserTransaction();
+        
+        try{
+            userTxn.begin();
+            em.persist(u);
+            userTxn.commit();
+
+        } catch(Throwable e){
+            try {
+                userTxn.rollback(); //-- Include this in try-catch 
+            } catch (IllegalStateException ex) {
+                Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SecurityException ex) {
+                Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SystemException ex) {
+                Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+          }
+} 
+        
+
+    
+    
+    
 }

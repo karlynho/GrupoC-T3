@@ -7,10 +7,12 @@ package com.uma.diariosur.entidades;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -39,21 +41,22 @@ public class Formulario implements Serializable {
     private Double precio;
     private String ubicacion;
     
-    @OneToOne(optional = false)
-    private Imagen img;
+    @OneToOne(optional = true, cascade = {CascadeType.MERGE})
+    @JoinColumn(name="Imagen_ID")
+    private Imagen Imagen_ID;
 
-    public Imagen getImg() {
-        return img;
+    public Imagen getImagen_ID() {
+        return Imagen_ID;
     }
 
-    public void setImg(Imagen img) {
-        this.img = img;
+    public void setImagen_ID(Imagen Imagen_ID) {
+        this.Imagen_ID = Imagen_ID;
     }
     
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Usuario usuario;
     
-    @ManyToOne
+    @ManyToOne (cascade = {CascadeType.ALL})
     private Periodista periodista;
     
      public static long getSerialVersionUID() {
