@@ -18,7 +18,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.ejb.SessionContext;
-import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
@@ -59,7 +58,6 @@ public class NegocioCarlos implements NegocioCarlosLocal {
         try{
             userTxn.begin();
             em.persist(f);
-           //em.merge(f.getUsuario());
             userTxn.commit();
 
         } catch(Throwable e){

@@ -53,7 +53,7 @@ public class Formulario implements Serializable {
         this.Imagen_ID = Imagen_ID;
     }
     
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     private Usuario usuario;
     
     @ManyToOne (cascade = {CascadeType.ALL})
