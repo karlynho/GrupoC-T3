@@ -41,16 +41,16 @@ public class Formulario implements Serializable {
     private Double precio;
     private String ubicacion;
     
-    @OneToOne(optional = true, cascade = {CascadeType.MERGE})
-    @JoinColumn(name="Imagen_ID")
-    private Imagen Imagen_ID;
+    @OneToOne(optional = false, cascade = {CascadeType.MERGE})
+    @JoinColumn(name="Imagen_ID",referencedColumnName = "id_m")
+    private Imagen im_id;
 
-    public Imagen getImagen_ID() {
-        return Imagen_ID;
+    public Imagen getIm_id() {
+        return im_id;
     }
 
-    public void setImagen_ID(Imagen Imagen_ID) {
-        this.Imagen_ID = Imagen_ID;
+    public void setIm_id(Imagen im_id) {
+        this.im_id = im_id;
     }
     
     @ManyToOne(cascade = {CascadeType.MERGE})

@@ -80,7 +80,7 @@ public class NegocioCarlos implements NegocioCarlosLocal {
             System.out.println("Ese formulario no esta en la BD");
         }
         else{
-            Imagen img = em.find(Imagen.class, f.getImagen_ID().getId());
+            Imagen img = em.find(Imagen.class, f.getIm_id().getId());
             em.remove(f);
             em.remove(img);
         }
@@ -101,7 +101,7 @@ public class NegocioCarlos implements NegocioCarlosLocal {
             e.setUbicacion(f.getUbicacion());
             e.setFecha_inicio(f.getFecha_inicio());
             e.setFecha_final(f.getFecha_subida());
-            e.setImagen(f.getImagen_ID());
+            e.setImagen(f.getIm_id());
             e.setPeriodista(periodista);
             List<Valoracion> v_vacia = new ArrayList();
             e.setValoraciones(v_vacia);
@@ -109,8 +109,8 @@ public class NegocioCarlos implements NegocioCarlosLocal {
             e.setMeGusta(m_gusta);
             em.persist(e);
            
-            Imagen img = em.find(Imagen.class, f.getImagen_ID().getId());
-            img.setEvento(e);
+            Imagen img = em.find(Imagen.class, f.getIm_id().getId());
+            
             em.merge(img);
         }
         
@@ -163,7 +163,27 @@ public class NegocioCarlos implements NegocioCarlosLocal {
           }
 } 
         
+@Override
+public void actualizarImagen(Imagen im){
+   UserTransaction userTxn = sessionContext.getUserTransaction();
+        
+        try{
+            userTxn.begin();
+            em.merge(im);
+            userTxn.commit();
 
+        } catch(Throwable e){
+            try {
+                userTxn.rollback(); //-- Include this in try-catch 
+            } catch (IllegalStateException ex) {
+                Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SecurityException ex) {
+                Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SystemException ex) {
+                Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+          }
+}
     
     
     

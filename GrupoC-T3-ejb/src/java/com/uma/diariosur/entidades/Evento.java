@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -46,7 +47,8 @@ public class Evento implements Serializable {
     private List<Valoracion> valoraciones;
     
     
-    @OneToOne(optional = false)
+    @OneToOne(optional = false, cascade = {CascadeType.MERGE})
+    @JoinColumn(name="imagen")
     private Imagen imagen;
     
     @ManyToOne
