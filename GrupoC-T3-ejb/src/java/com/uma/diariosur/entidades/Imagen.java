@@ -29,12 +29,6 @@ public class Imagen implements Serializable {
     private Integer id;
     private String tipo;
     private String enlace;
-//    @OneToOne(optional = true, cascade = CascadeType.MERGE)
-//    @JoinColumn(name="Evento_ID")
-//    private Evento Evento_ID;
-//    @OneToOne(optional = true, cascade = CascadeType.MERGE)
-//    @JoinColumn(name="Formulario_ID")
-//    private Formulario Formulario_ID;
 
     public String getEnlace() {
         return enlace;
@@ -44,21 +38,6 @@ public class Imagen implements Serializable {
         this.enlace = enlace;
     }
     
-//    public Evento getEvento_ID() {
-//        return Evento_ID;
-//    }
-//
-//    public void setEvento_ID(Evento Evento_ID) {
-//        this.Evento_ID = Evento_ID;
-//    }
-//
-//    public Formulario getFormulario_ID() {
-//        return Formulario_ID;
-//    }
-//
-//    public void setFormulario_ID(Formulario Formulario_ID) {
-//        this.Formulario_ID = Formulario_ID;
-//    }
 
     
     public void setTipo(String tipo) {

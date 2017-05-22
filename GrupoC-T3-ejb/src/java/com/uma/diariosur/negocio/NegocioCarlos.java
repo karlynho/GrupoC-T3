@@ -162,14 +162,14 @@ public class NegocioCarlos implements NegocioCarlosLocal {
             }
           }
 } 
-        
-@Override
-public void actualizarImagen(Imagen im){
-   UserTransaction userTxn = sessionContext.getUserTransaction();
+
+    @Override
+    public void crearEvento(Evento f) {
+        UserTransaction userTxn = sessionContext.getUserTransaction();
         
         try{
             userTxn.begin();
-            em.merge(im);
+            em.persist(f);
             userTxn.commit();
 
         } catch(Throwable e){
@@ -183,8 +183,7 @@ public void actualizarImagen(Imagen im){
                 Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
             }
           }
-}
-    
-    
-    
+    }
+        
+ 
 }

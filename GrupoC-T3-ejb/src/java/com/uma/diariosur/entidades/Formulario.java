@@ -45,6 +45,10 @@ public class Formulario implements Serializable {
     @JoinColumn(name="Imagen_ID",referencedColumnName = "id_m")
     private Imagen im_id;
 
+    @ManyToOne(cascade = {CascadeType.MERGE})
+    private Usuario usuario;
+    
+
     public Imagen getIm_id() {
         return im_id;
     }
@@ -53,13 +57,7 @@ public class Formulario implements Serializable {
         this.im_id = im_id;
     }
     
-    @ManyToOne(cascade = {CascadeType.MERGE})
-    private Usuario usuario;
-    
-    @ManyToOne (cascade = {CascadeType.ALL})
-    private Periodista periodista;
-    
-     public static long getSerialVersionUID() {
+    public static long getSerialVersionUID() {
         return serialVersionUID;
     }
     public Usuario getUsuario() {
@@ -89,13 +87,6 @@ public class Formulario implements Serializable {
         this.usuario = usuario;
     }
 
-    public Periodista getPeriodista() {
-        return periodista;
-    }
-
-    public void setPeriodista(Periodista periodista) {
-        this.periodista = periodista;
-    }
     
     public String getEstado() {
         return estado;

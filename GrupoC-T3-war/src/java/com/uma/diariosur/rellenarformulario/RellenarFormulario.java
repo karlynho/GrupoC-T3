@@ -258,20 +258,28 @@ public class RellenarFormulario implements Serializable{
                         form.setFecha_subida(new Date());
                         form.setIm_id(im);
                         nc.crearFormulario(form);
-                        //nc.actualizarImagen(im);
+                        
                         
                     }
                     
-//                    if(ctrlhome.getPeriodista()!=null){
-//                        Evento ev = new Evento(nombre, descripcion, categoria, fecha_inicio, fecha_fin, precio, ubicacion,im,ctrlhome.getPeriodista());
-//                        List<Valoracion> v_vacia = new ArrayList();
-//                        im.setEvento(ev);
-//                        List<Megusta> m_gusta = new ArrayList();
-//                        ev.setMeGusta(m_gusta);
-//                        ev.setImagen(im);
-//                        ev.setValoraciones(v_vacia);
-//                        bn.addEvent(ev);
-//                    }
+                    if(ctrlhome.getPeriodista()!=null){
+                        Evento ev = new Evento();
+                        ev.setNombre(nombre);
+                        ev.setDescripcion(descripcion);
+                        ev.setCategoria(categoria);
+                        ev.setUbicacion(ubicacion);
+                        ev.setPrecio(precio);
+                        ev.setFecha_inicio(fecha_inicio);
+                        ev.setFecha_final(fecha_fin);
+                        ev.setPeriodista(ctrlhome.getPeriodista());
+                        
+                        List<Valoracion> v_vacia = new ArrayList();
+                        List<Megusta> m_gusta = new ArrayList();
+                        ev.setMeGusta(m_gusta);
+                        ev.setImagen(im);
+                        ev.setValoraciones(v_vacia);
+                        nc.crearEvento(ev);
+                    }
                     
                     
            

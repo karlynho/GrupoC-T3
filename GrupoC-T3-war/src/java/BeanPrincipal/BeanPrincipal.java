@@ -265,7 +265,7 @@ public class BeanPrincipal implements Serializable{
        p.setApellidos("Montoya");
        p.setPassword("contrasenia");
        p.setEmail("smv@gmail.com");
-       p.setId(123456);
+       p.setDni("78974380Q");
        periodistas.add(p);
         
         
