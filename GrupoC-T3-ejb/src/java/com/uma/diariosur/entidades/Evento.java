@@ -40,7 +40,7 @@ public class Evento implements Serializable {
     private Date fecha_final;
     private Double precio;
     private String ubicacion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "evento")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "evento")
     private List<Megusta> meGusta;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "evento")

@@ -10,11 +10,13 @@ import ControlVistaHome.ControlHome;
 import com.uma.diariosur.entidades.Evento;
 import com.uma.diariosur.entidades.Megusta;
 import com.uma.diariosur.entidades.Valoracion;
+import com.uma.diariosur.negocio.NegocioCarmenLocal;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -39,6 +41,8 @@ public class PruebaBean implements Serializable{
     private BeanPrincipal ctreve;
     @Inject
     private ControlHome ctrh;
+    @EJB
+    private NegocioCarmenLocal nc;
     private List<Valoracion> val = new ArrayList<Valoracion>();
     private Integer rating2; 
     private Integer ratinguser;
@@ -189,7 +193,10 @@ public class PruebaBean implements Serializable{
           Megusta me = new Megusta();
           me.setEvento(eve);
           me.setUsuario(ctrh.getUsuario());
-          ctreve.addMegusta(me);
+          
+          nc.crearMegusta(me);
+          
+          
           FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "" , "Añadido evento a mis MeGusta");
           FacesContext.getCurrentInstance().addMessage("pm:bm", message);
           return "vistaEvento.xhtml";

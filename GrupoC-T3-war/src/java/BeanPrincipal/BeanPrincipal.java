@@ -323,6 +323,7 @@ public class BeanPrincipal implements Serializable{
         
         eventos = new ArrayList<>();
         Evento e1 = new Evento();
+        e1.setId(1);
         e1.setNombre("Red Hot Chili Peppers");
         e1.setCategoria("Conciertos");
         e1.setDescripcion("Los Red Hot Chili Peppers visitan España por primera vez desde hace 5 años y vienen a Malaga"
@@ -337,6 +338,7 @@ public class BeanPrincipal implements Serializable{
         
         
         Evento e2 = new Evento();
+        e2.setId(2);
         e2.setNombre("Uni vs RMB");
         e2.setCategoria("Deportivo");
         e2.setDescripcion("Partido perteneciente a la jornada numero 12 de la Liga Endesa entre el líder de la clasificacion"

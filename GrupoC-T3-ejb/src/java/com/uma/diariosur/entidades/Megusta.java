@@ -6,6 +6,7 @@
 package com.uma.diariosur.entidades;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,10 +25,10 @@ public class Megusta implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.MERGE)
     private Evento evento;
     
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.MERGE)
     private Usuario usuario;
 
     public static long getSerialVersionUID() {
