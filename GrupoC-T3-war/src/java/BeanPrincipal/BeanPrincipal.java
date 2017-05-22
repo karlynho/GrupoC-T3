@@ -265,7 +265,7 @@ public class BeanPrincipal implements Serializable{
        p.setApellidos("Montoya");
        p.setPassword("contrasenia");
        p.setEmail("smv@gmail.com");
-       p.setId(123456);
+       p.setDni("78974380Q");
        periodistas.add(p);
         
         
@@ -334,7 +334,7 @@ public class BeanPrincipal implements Serializable{
         e1.setPrecio(20.00);
         e1.setUbicacion("Estadio de Futbol La Rosaleda (Málaga)");
         e1.setImagen(i3);
-        i3.setEvento(e1);
+        
         
         Evento e2 = new Evento();
         e2.setNombre("Uni vs RMB");
@@ -347,7 +347,7 @@ public class BeanPrincipal implements Serializable{
         e2.setPrecio(34.00);
         e2.setUbicacion("Palacio de los Deportes Martin Carpena (Málaga)");
         e2.setImagen(i4);
-        i4.setEvento(e2);
+        
         
         Evento e3 = new Evento();
         e3.setNombre("Offspring");
@@ -360,7 +360,7 @@ public class BeanPrincipal implements Serializable{
         e3.setPrecio(324.00);
         e3.setUbicacion("Paris 15 (Málaga)");
         e3.setImagen(i2);
-        i2.setEvento(e3);
+        
       
         eventos.add(e1);
         eventos.add(e2);
@@ -382,7 +382,7 @@ public class BeanPrincipal implements Serializable{
         e4.setUbicacion("Starlite (Marbella)");
 
         e4.setImagen(i8);
-        i8.setEvento(e4);
+        
         
      
         Evento e5 = new Evento();
@@ -395,7 +395,7 @@ public class BeanPrincipal implements Serializable{
         e5.setPeriodista(p);
         e5.setPrecio(34.00);
         e5.setUbicacion("Plaza de Toros (Marbella)");
-        i9.setEvento(e5);
+        
         e5.setImagen(i9);
         
       Evento e6 = new Evento();
@@ -410,7 +410,7 @@ public class BeanPrincipal implements Serializable{
         e6.setUbicacion("Plaza de Toros (Málaga)");
 
       
-        i10.setEvento(e6);
+        
         e6.setImagen(i10);
        
         eventos.add(e4);
@@ -429,7 +429,7 @@ public class BeanPrincipal implements Serializable{
         e7.setPrecio(0.00);
         e7.setUbicacion(" Salón de Actos de la E.T.S.I. Informática (Málaga)");
       
-        i11.setEvento(e7);
+        
         e7.setImagen(i11);
         
         Evento e8 = new Evento();
@@ -444,7 +444,7 @@ public class BeanPrincipal implements Serializable{
         e8.setPrecio(5.00);
         e8.setUbicacion("Palacio de Ferias (Málaga)");
       
-        i12.setEvento(e8);
+        
         e8.setImagen(i12);
         
         Evento e9 = new Evento();
@@ -459,7 +459,7 @@ public class BeanPrincipal implements Serializable{
         e9.setPrecio(0.00);
         e9.setUbicacion("Parque de España (Fuengirola)");
       
-        i13.setEvento(e9);
+        
         e9.setImagen(i13);
         
         eventos.add(e7);
@@ -536,8 +536,8 @@ public class BeanPrincipal implements Serializable{
             f.setFecha_subida(new Date());
             f.setEstado("pendiente");
             f.setUsuario(u);
-            f.setImagen_ID(i5);
-            i5.setFormulario_ID(f);
+            f.setIm_id(i5);
+            
             formularios.add(f);
         
             
@@ -555,8 +555,8 @@ public class BeanPrincipal implements Serializable{
             f1.setFecha_subida(new Date());
             f1.setEstado("pendiente");
             f1.setUsuario(u);
-            f1.setImagen_ID(i6);
-            i6.setFormulario_ID(f1);
+            f1.setIm_id(i6);
+            
             formularios.add(f1);
             
         Formulario f2 = new Formulario();
@@ -572,8 +572,8 @@ public class BeanPrincipal implements Serializable{
             f2.setFecha_subida(new Date());
             f2.setEstado("pendiente");
             f2.setUsuario(u);
-            f2.setImagen_ID(i7);
-            i7.setFormulario_ID(f2);
+            f2.setIm_id(i7);
+           
             formularios.add(f2);
         
         

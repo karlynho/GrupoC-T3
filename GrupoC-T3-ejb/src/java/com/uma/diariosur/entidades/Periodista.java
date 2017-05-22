@@ -26,8 +26,7 @@ public class Periodista implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id; 
+    private String dni; 
     private String nombre;
     private String apellidos;
     private String email;
@@ -37,11 +36,9 @@ public class Periodista implements Serializable {
     private String ambito;
 
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "periodista")
-    private List<Evento> eventos;
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "periodista")
+    private List<Evento> evento;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "periodista")
-    private List<Formulario> formulario;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -51,8 +48,12 @@ public class Periodista implements Serializable {
         
     }
     
-    public Integer getId() {
-        return id;
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
     }
     
     public String getNombre() {
@@ -103,42 +104,21 @@ public class Periodista implements Serializable {
         this.password = password;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    
+
+    public List<Evento> getEvento() {
+        return evento;
     }
 
-    public List<Evento> getEventos() {
-        return eventos;
+    public void setEvento(List<Evento> evento) {
+        this.evento = evento;
     }
 
-    public void setEventos(List<Evento> eventos) {
-        this.eventos = eventos;
-    }
 
-    public List<Formulario> getFormulario() {
-        return formulario;
-    }
-
-    public void setFormulario(List<Formulario> formulario) {
-        this.formulario = formulario;
-    }
-    
-    
-     public Periodista (String nombre, String apellidos, Integer id, String email, String contrasenia){
-        this.apellidos=apellidos;
-        this.id=id;
-        this.nombre=nombre;
-        this.email=email;
-        this.password=contrasenia;
-        
-    }
-    
-    
-    
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (dni != null ? dni.hashCode() : 0);
         return hash;
     }
 
@@ -149,7 +129,7 @@ public class Periodista implements Serializable {
             return false;
         }
         Periodista other = (Periodista) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.dni == null && other.dni != null) || (this.dni != null && !this.dni.equals(other.dni))) {
             return false;
         }
         return true;

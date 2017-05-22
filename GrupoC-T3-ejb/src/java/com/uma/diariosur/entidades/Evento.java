@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -46,10 +47,11 @@ public class Evento implements Serializable {
     private List<Valoracion> valoraciones;
     
     
-    @OneToOne(optional = false)
+    @OneToOne(optional = false, cascade = {CascadeType.MERGE})
+    @JoinColumn(name="imagen", referencedColumnName = "id_m")
     private Imagen imagen;
     
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE})
     private Periodista periodista;
 
 
@@ -188,17 +190,7 @@ public class Evento implements Serializable {
     }
     
 
-     public Evento(String nombre, String descripcion, String categoria, Date fecha_inicio, Date fecha_final, Double precio, String ubicacion, Imagen i, Periodista p) {
-
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.categoria = categoria;
-        this.fecha_inicio = fecha_inicio;
-        this.fecha_final = fecha_final;
-        this.precio = precio;
-        this.ubicacion = ubicacion;
-
-    }
+    
      
     
 

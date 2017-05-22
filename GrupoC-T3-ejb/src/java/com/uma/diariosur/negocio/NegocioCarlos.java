@@ -18,7 +18,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.ejb.SessionContext;
-import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
@@ -59,7 +58,6 @@ public class NegocioCarlos implements NegocioCarlosLocal {
         try{
             userTxn.begin();
             em.persist(f);
-           //em.merge(f.getUsuario());
             userTxn.commit();
 
         } catch(Throwable e){
@@ -82,7 +80,7 @@ public class NegocioCarlos implements NegocioCarlosLocal {
             System.out.println("Ese formulario no esta en la BD");
         }
         else{
-            Imagen img = em.find(Imagen.class, f.getImagen_ID().getId());
+            Imagen img = em.find(Imagen.class, f.getIm_id().getId());
             em.remove(f);
             em.remove(img);
         }
@@ -103,7 +101,7 @@ public class NegocioCarlos implements NegocioCarlosLocal {
             e.setUbicacion(f.getUbicacion());
             e.setFecha_inicio(f.getFecha_inicio());
             e.setFecha_final(f.getFecha_subida());
-            e.setImagen(f.getImagen_ID());
+            e.setImagen(f.getIm_id());
             e.setPeriodista(periodista);
             List<Valoracion> v_vacia = new ArrayList();
             e.setValoraciones(v_vacia);
@@ -111,8 +109,8 @@ public class NegocioCarlos implements NegocioCarlosLocal {
             e.setMeGusta(m_gusta);
             em.persist(e);
            
-            Imagen img = em.find(Imagen.class, f.getImagen_ID().getId());
-            img.setEvento(e);
+            Imagen img = em.find(Imagen.class, f.getIm_id().getId());
+            
             em.merge(img);
         }
         
@@ -164,9 +162,28 @@ public class NegocioCarlos implements NegocioCarlosLocal {
             }
           }
 } 
-        
 
-    
-    
-    
+    @Override
+    public void crearEvento(Evento f) {
+        UserTransaction userTxn = sessionContext.getUserTransaction();
+        
+        try{
+            userTxn.begin();
+            em.persist(f);
+            userTxn.commit();
+
+        } catch(Throwable e){
+            try {
+                userTxn.rollback(); //-- Include this in try-catch 
+            } catch (IllegalStateException ex) {
+                Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SecurityException ex) {
+                Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SystemException ex) {
+                Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+          }
+    }
+        
+ 
 }

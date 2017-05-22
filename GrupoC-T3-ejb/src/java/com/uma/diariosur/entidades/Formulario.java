@@ -41,25 +41,23 @@ public class Formulario implements Serializable {
     private Double precio;
     private String ubicacion;
     
-    @OneToOne(optional = true, cascade = {CascadeType.MERGE})
-    @JoinColumn(name="Imagen_ID")
-    private Imagen Imagen_ID;
+    @OneToOne(optional = false, cascade = {CascadeType.MERGE})
+    @JoinColumn(name="Imagen_ID",referencedColumnName = "id_m")
+    private Imagen im_id;
 
-    public Imagen getImagen_ID() {
-        return Imagen_ID;
-    }
-
-    public void setImagen_ID(Imagen Imagen_ID) {
-        this.Imagen_ID = Imagen_ID;
-    }
-    
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     private Usuario usuario;
     
-    @ManyToOne (cascade = {CascadeType.ALL})
-    private Periodista periodista;
+
+    public Imagen getIm_id() {
+        return im_id;
+    }
+
+    public void setIm_id(Imagen im_id) {
+        this.im_id = im_id;
+    }
     
-     public static long getSerialVersionUID() {
+    public static long getSerialVersionUID() {
         return serialVersionUID;
     }
     public Usuario getUsuario() {
@@ -89,13 +87,6 @@ public class Formulario implements Serializable {
         this.usuario = usuario;
     }
 
-    public Periodista getPeriodista() {
-        return periodista;
-    }
-
-    public void setPeriodista(Periodista periodista) {
-        this.periodista = periodista;
-    }
     
     public String getEstado() {
         return estado;

@@ -256,20 +256,29 @@ public class RellenarFormulario implements Serializable{
                         form.setUsuario(ctrlhome.getUsuario());
                         form.setEstado("pendiente");
                         form.setFecha_subida(new Date());
-                        im.setFormulario_ID(form);
-                        form.setImagen_ID(im);
+                        form.setIm_id(im);
                         nc.crearFormulario(form);
+                        
+                        
                     }
                     
                     if(ctrlhome.getPeriodista()!=null){
-                        Evento ev = new Evento(nombre, descripcion, categoria, fecha_inicio, fecha_fin, precio, ubicacion,im,ctrlhome.getPeriodista());
+                        Evento ev = new Evento();
+                        ev.setNombre(nombre);
+                        ev.setDescripcion(descripcion);
+                        ev.setCategoria(categoria);
+                        ev.setUbicacion(ubicacion);
+                        ev.setPrecio(precio);
+                        ev.setFecha_inicio(fecha_inicio);
+                        ev.setFecha_final(fecha_fin);
+                        ev.setPeriodista(ctrlhome.getPeriodista());
+                        
                         List<Valoracion> v_vacia = new ArrayList();
-                        im.setEvento(ev);
                         List<Megusta> m_gusta = new ArrayList();
                         ev.setMeGusta(m_gusta);
                         ev.setImagen(im);
                         ev.setValoraciones(v_vacia);
-                        bn.addEvent(ev);
+                        nc.crearEvento(ev);
                     }
                     
                     
