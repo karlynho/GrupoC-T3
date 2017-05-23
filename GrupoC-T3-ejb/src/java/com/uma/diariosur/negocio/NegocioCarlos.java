@@ -23,7 +23,7 @@ import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+
 import javax.persistence.TypedQuery;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
@@ -215,6 +215,12 @@ public class NegocioCarlos implements NegocioCarlosLocal {
                 Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
             }
           }
+    }
+
+    @Override
+    public List<Evento> listarEvento() {
+        TypedQuery<Evento> query=em.createNamedQuery("lista.eventos",Evento.class);
+        return query.getResultList();
     }
         
  
