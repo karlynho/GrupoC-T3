@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.net.URL;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 
@@ -56,6 +57,9 @@ public class RellenarFormulario implements Serializable{
     @Inject 
     private ControlHome ctrlhome;
 
+    private String aux_ext;
+    private String img_aux;
+    
     public ControlHome getCtrlhome() {
         return ctrlhome;
     }
@@ -63,20 +67,6 @@ public class RellenarFormulario implements Serializable{
     public void setCtrlhome(ControlHome ctrlhome) {
         this.ctrlhome = ctrlhome;
     }
-
-    public BeanPrincipal getBn() {
-        return bn;
-    }
-
-    public void setBn(BeanPrincipal bn) {
-        this.bn = bn;
-    }
-    private String aux_ext;
-    private String img_aux;
-    
-    @Inject
-    private BeanPrincipal bn;
-    
     
     public UploadedFile getImg() {
         return img;
@@ -113,12 +103,16 @@ public class RellenarFormulario implements Serializable{
             InputStream input = img.getInputstream();
 
             
+           
+            URL location = getClass().getProtectionDomain().getCodeSource().getLocation();
+            
+            
             String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
         //    String path_aux = path.substring(0, path.lastIndexOf("build"));
             
             
-            OutputStream output = new FileOutputStream(new File("C:\\Users\\Carlos\\Desktop\\Informatica", filename));
-            //OutputStream output = new FileOutputStream(new File(path_aux.concat("web//resources"), filename));
+            
+            OutputStream output = new FileOutputStream(new File(path.concat("//resources"), filename));
             aux_ext = ext;
         
         try {
@@ -205,8 +199,8 @@ public class RellenarFormulario implements Serializable{
         boolean encontrado = false;
         int i=0;
         
-        while (i<bn.getEventos().size() && !encontrado){
-            if (bn.getEventos().get(i).getNombre().equalsIgnoreCase(this.nombre)){
+        while (i<nc.listarEvento().size() && !encontrado){
+            if (nc.listarEvento().get(i).getNombre().equalsIgnoreCase(this.nombre)){
                 encontrado = true;
             }
             i++;
@@ -301,8 +295,8 @@ public class RellenarFormulario implements Serializable{
         boolean encontrado = false;
         int i=0;
         
-        while (i<bn.getEventos().size() && !encontrado){
-            if (bn.getEventos().get(i).getNombre().equalsIgnoreCase(this.nombre)){
+        while (i<nc.listarEvento().size() && !encontrado){
+            if (nc.listarEvento().get(i).getNombre().equalsIgnoreCase(this.nombre)){
                 encontrado = true;
             }
             i++;
