@@ -9,6 +9,7 @@ import BeanPrincipal.BeanPrincipal;
 import com.uma.diariosur.entidades.Evento;
 import com.uma.diariosur.entidades.Periodista;
 import com.uma.diariosur.entidades.Usuario;
+import com.uma.diariosur.negocio.NegocioStevenLocal;
 
 import javax.inject.Named;
 
@@ -17,6 +18,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -45,7 +47,17 @@ public class ControlHome implements Serializable{
     private String busqueda;
     private String busquedaVacia;
     private List<Evento> listaEventosVacia;
+    private List<Evento> eventos;
     
+    
+    @EJB
+    NegocioStevenLocal ns;
+    
+    
+     public List<Evento> getEventos() {
+        eventos = ns.listarEventos();
+        return eventos;
+    }
 
     public String getBusquedaVacia() {
         return busquedaVacia;
@@ -109,14 +121,9 @@ public class ControlHome implements Serializable{
         this.fechaVacia = fechaVacia;
     }
 
-    public List<Evento> getEventos() {
-        return eventos;
-    }
+   
 
-    public void setEventos(List<Evento> eventos) {
-        this.eventos = eventos;
-    }
-    private List<Evento>eventos;
+    
 
 
     public BeanPrincipal getBnp() {
@@ -129,13 +136,8 @@ public class ControlHome implements Serializable{
     }
     
     
-    public String getEvento() {
-        return evento;
-    }
-
-    public void setEvento(String evento) {
-        this.evento = evento;
-    }
+  
+   
 
     public String getUbicacion() {
         return ubicacion;
