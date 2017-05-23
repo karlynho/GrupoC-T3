@@ -14,6 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
@@ -21,6 +23,13 @@ import javax.persistence.Temporal;
  *
  * @author Carlos
  */
+@NamedQueries({
+    
+    @NamedQuery(name="lista.formularios",
+                query="SELECT f FROM Formulario f "),
+    
+        
+})
 @Entity
 public class Formulario implements Serializable {
 

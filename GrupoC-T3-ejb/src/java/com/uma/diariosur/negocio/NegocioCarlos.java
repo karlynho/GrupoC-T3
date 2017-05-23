@@ -24,6 +24,7 @@ import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
@@ -39,16 +40,12 @@ public class NegocioCarlos implements NegocioCarlosLocal {
     private EntityManager em;
     @Resource
     private SessionContext sessionContext;
-    List<Formulario> formularios;
+    
     
     @Override
     public List<Formulario> listarFormulario() {
-        formularios = new ArrayList<>();
-        
-        Query q = em.createQuery("SELECT f from Formulario f");
-        formularios = q.getResultList();
-        System.out.println("seee "+ formularios.size());
-        return formularios;
+        TypedQuery<Formulario> query=em.createNamedQuery("lista.formularios",Formulario.class);
+        return query.getResultList();
     }
 
    @Override
@@ -62,12 +59,14 @@ public class NegocioCarlos implements NegocioCarlosLocal {
 
         } catch(Throwable e){
             try {
-                //userTxn.rollback(); //-- Include this in try-catch 
+                userTxn.rollback(); //-- Include this in try-catch 
             } catch (IllegalStateException ex) {
                 Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SecurityException ex) {
                 Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            } catch (SystemException ex) {
+               Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+           }
   }
         
         
@@ -108,10 +107,7 @@ public class NegocioCarlos implements NegocioCarlosLocal {
             List<Megusta> m_gusta = new ArrayList();
             e.setMeGusta(m_gusta);
             em.persist(e);
-           
-            Imagen img = em.find(Imagen.class, f.getIm_id().getId());
-            
-            em.merge(img);
+          
         }
         
     }

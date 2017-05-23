@@ -12,27 +12,30 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
  
   
 @SessionScoped
-
+@Named(value = "dataScrollerView")
 public class DataScrollerView implements Serializable {
-      
     @EJB
     private NegocioCarlosLocal nc;
-    
     @Inject
     private ControlHome ctrlhome;
     private List<Formulario> forms;
 
     public List<Formulario> getForms() {
+        forms = nc.listarFormulario();
         return forms;
     }
 
-    public void setForms(List<Formulario> forms) {
-        this.forms = forms;
+    public NegocioCarlosLocal getNc() {
+        return nc;
     }
 
+    public void setNc(NegocioCarlosLocal nc) {
+        this.nc = nc;
+    }
 
     public ControlHome getCtrlhome() {
         return ctrlhome;
@@ -43,8 +46,7 @@ public class DataScrollerView implements Serializable {
     }
   
     public DataScrollerView() {
-        forms = new ArrayList();
-        forms= nc.listarFormulario();
+        
     }
 
     
