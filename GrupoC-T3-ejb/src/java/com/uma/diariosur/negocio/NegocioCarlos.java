@@ -73,17 +73,32 @@ public class NegocioCarlos implements NegocioCarlosLocal {
     }
 
     @Override
-    public void rechazarFormulario(Integer id) {
-        Formulario f = em.find(Formulario.class, id);
-        if (f==null){
-            System.out.println("Ese formulario no esta en la BD");
-        }
-        else{
-            Imagen img = em.find(Imagen.class, f.getIm_id().getId());
-            em.remove(f);
+    public void rechazarFormulario(Formulario f) {
+    
+      //  Formulario f_entity = em.find(Formulario.class, id);
+        Imagen img = em.find(Imagen.class, f.getIm_id().getId());
+         UserTransaction userTxn = sessionContext.getUserTransaction();
+         
+         //Imagen img = em.find(Imagen.class, f.getIm_id().getId());
+        try{
+            userTxn.begin();
             em.remove(img);
+            userTxn.commit();
+
+        } catch(Throwable e){
+            try {
+                userTxn.rollback(); //-- Include this in try-catch 
+            } catch (IllegalStateException ex) {
+                Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SecurityException ex) {
+                Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SystemException ex) {
+               Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+           }
+  }
+            
+            
         }
-    }
 
     @Override
     public void validarFormulario(Integer id, Periodista periodista) {
@@ -106,7 +121,29 @@ public class NegocioCarlos implements NegocioCarlosLocal {
             e.setValoraciones(v_vacia);
             List<Megusta> m_gusta = new ArrayList();
             e.setMeGusta(m_gusta);
-            em.persist(e);
+            
+            UserTransaction userTxn = sessionContext.getUserTransaction();
+        
+            try{
+                userTxn.begin();
+                em.persist(e);
+                userTxn.commit();
+
+        } catch(Throwable ee){
+            try {
+                userTxn.rollback(); //-- Include this in try-catch 
+            } catch (IllegalStateException ex) {
+                Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SecurityException ex) {
+                Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SystemException ex) {
+                Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+  }         
+            
+            
+            
+            
           
         }
         
@@ -119,7 +156,6 @@ public class NegocioCarlos implements NegocioCarlosLocal {
         try{
             userTxn.begin();
             em.persist(img);
-            
             userTxn.commit();
 
         } catch(Throwable e){

@@ -38,7 +38,7 @@ public class Usuario implements Serializable {
     @OneToMany(cascade = CascadeType.MERGE, mappedBy = "usuario")
     private List<Valoracion> valoraciones;
     
-    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "usuario")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "usuario", orphanRemoval = true)
     private List<Formulario> formulario;
     
     @OneToMany(cascade = CascadeType.MERGE, mappedBy = "usuario")
