@@ -23,7 +23,7 @@ import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
@@ -39,14 +39,12 @@ public class NegocioCarlos implements NegocioCarlosLocal {
     private EntityManager em;
     @Resource
     private SessionContext sessionContext;
-    List<Formulario> formularios;
     
     @Override
     public List<Formulario> listarFormulario() {
-        formularios = new ArrayList<>();
         
-        Query q = em.createQuery("SELECT f from Formulario f");
-        formularios = q.getResultList();
+        TypedQuery<Formulario> q = em.createQuery("SELECT f from Formulario f", Formulario.class);
+        List<Formulario> formularios = q.getResultList();
         System.out.println("seee "+ formularios.size());
         return formularios;
     }

@@ -23,16 +23,14 @@ public class DataScrollerView implements Serializable {
     
     @Inject
     private ControlHome ctrlhome;
-    private List<Formulario> forms;
+   
 
     public List<Formulario> getForms() {
-        return forms;
+        return nc.listarFormulario();
+        
     }
 
-    public void setForms(List<Formulario> forms) {
-        this.forms = forms;
-    }
-
+    
 
     public ControlHome getCtrlhome() {
         return ctrlhome;
@@ -43,8 +41,8 @@ public class DataScrollerView implements Serializable {
     }
   
     public DataScrollerView() {
-        forms = new ArrayList();
-        forms= nc.listarFormulario();
+  //      forms = new ArrayList();
+  //      forms= nc.listarFormulario();
     }
 
     
