@@ -117,6 +117,12 @@ public class NegocioCarlos implements NegocioCarlosLocal {
             System.out.println("Ese formulario no esta en la BD");
         }
         else{
+            
+            Imagen copia = new Imagen();
+            copia.setEnlace(f.getIm_id().getEnlace());
+            copia.setTipo(f.getIm_id().getTipo());
+            crearImagen(copia);
+            
             Evento e = new Evento();
             e.setNombre(f.getNombre());
             e.setDescripcion(f.getDescripcion());
@@ -125,17 +131,20 @@ public class NegocioCarlos implements NegocioCarlosLocal {
             e.setUbicacion(f.getUbicacion());
             e.setFecha_inicio(f.getFecha_inicio());
             e.setFecha_final(f.getFecha_subida());
-            e.setImagen(f.getIm_id());
+            e.setImagen(copia);
             e.setPeriodista(periodista);
             List<Valoracion> v_vacia = new ArrayList();
             e.setValoraciones(v_vacia);
             List<Megusta> m_gusta = new ArrayList();
             e.setMeGusta(m_gusta);
             
+            
             UserTransaction userTxn = sessionContext.getUserTransaction();
         
+            
             try{
                 userTxn.begin();
+                em.remove(em.contains(f) ? f : em.merge(f));
                 em.persist(e);
                 userTxn.commit();
 
