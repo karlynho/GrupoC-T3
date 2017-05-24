@@ -9,6 +9,8 @@ import BeanPrincipal.BeanPrincipal;
 import com.uma.diariosur.entidades.Evento;
 import com.uma.diariosur.entidades.Periodista;
 import com.uma.diariosur.entidades.Usuario;
+import com.uma.diariosur.negocio.NegocioSteven;
+import com.uma.diariosur.negocio.NegocioStevenLocal;
 
 import javax.inject.Named;
 
@@ -17,6 +19,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -32,8 +35,7 @@ import javax.inject.Inject;
 public class ControlHome implements Serializable{
     @Inject
     private BeanPrincipal bnp;
-    @Inject
-    private BeanPrincipal ctreve;
+  
     private Usuario usuario;
     private Periodista periodista;
     private String evento;
@@ -45,6 +47,37 @@ public class ControlHome implements Serializable{
     private String busqueda;
     private String busquedaVacia;
     private List<Evento> listaEventosVacia;
+    private List<Evento> eventos;
+    private List<Evento> eventosFiltrados;
+
+    public List<Evento> getEventosFiltrados() {
+        return eventosFiltrados;
+    }
+
+    public void setEventosFiltrados(List<Evento> eventosFiltrados) {
+        this.eventosFiltrados = eventosFiltrados;
+    }
+
+    public NegocioStevenLocal getNs() {
+        return ns;
+    }
+
+    public void setNs(NegocioStevenLocal ns) {
+        this.ns = ns;
+    }
+    
+    
+    
+    @EJB
+    private NegocioStevenLocal ns;
+    
+    
+     public List<Evento> getEventos() {
+         eventos = ns.listarEventos();
+        return eventos;
+    }
+
+    
     
 
     public String getBusquedaVacia() {
@@ -66,16 +99,22 @@ public class ControlHome implements Serializable{
         this.busqueda = busqueda;
     }
 
+    
+    
     public String buscar(){
         if(busqueda == null){
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error" , "El campo de búsqueda está vacio");
             FacesContext.getCurrentInstance().addMessage("menu:bus", message);
         }
         List<Evento> ev = new ArrayList();
+        List<Evento> todoEventos = new ArrayList();
+        
+        todoEventos = ns.listarEventos();
+        
         int i=0;
         Evento event = new Evento();
-        while(i<ctreve.getEventos().size()){
-            event = ctreve.getEventos().get(i);
+        while(i<todoEventos.size()){
+            event = todoEventos.get(i);
             if(event.getNombre().toUpperCase().contains(busqueda.toUpperCase())){
                 ev.add(event);
                
@@ -83,7 +122,7 @@ public class ControlHome implements Serializable{
             i++;
         }
         if(!ev.isEmpty()){
-            ctreve.setEventosFiltrados(ev);
+            this.eventosFiltrados = ev;
             return "PaginaHome.xhtml";
         }else{
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error" , "No se han encontrado coincidencias.");
@@ -92,6 +131,9 @@ public class ControlHome implements Serializable{
             return null;
         }      
     }
+    
+    
+    
     
     public String getStringVavio() {
         return stringVacio;
@@ -109,14 +151,7 @@ public class ControlHome implements Serializable{
         this.fechaVacia = fechaVacia;
     }
 
-    public List<Evento> getEventos() {
-        return eventos;
-    }
-
-    public void setEventos(List<Evento> eventos) {
-        this.eventos = eventos;
-    }
-    private List<Evento>eventos;
+   
 
 
     public BeanPrincipal getBnp() {
@@ -216,18 +251,11 @@ public class ControlHome implements Serializable{
         this.categoria = stringVacio;
         this.fecha     = fechaVacia;
         this.busqueda = busquedaVacia;
-        bnp.setEventosFiltrados(listaEventosVacia);
+        this.eventosFiltrados = listaEventosVacia;
         return "PaginaHome.xhtml";
     }
 
-    public BeanPrincipal getCtreve() {
-        return ctreve;
-    }
-
-    public void setCtreve(BeanPrincipal ctreve) {
-        this.ctreve = ctreve;
-    }
-
+ 
     public String getStringVacio() {
         return stringVacio;
     }

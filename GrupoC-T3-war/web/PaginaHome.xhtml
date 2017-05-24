@@ -22,7 +22,7 @@
 
 
                             <f:selectItem itemLabel="Ciudad" itemValue=" "/>
-                            <f:selectItem itemLabel="Malaga" itemValue="Málaga"/>
+                            <f:selectItem itemLabel="Malaga" itemValue="Malaga"/>
                             <f:selectItem itemLabel="Marbella" itemValue="Marbella"/> 
                             <f:selectItem itemLabel="Torre del Mar" itemValue="Torre del Mar"/>
                             <f:selectItem itemLabel="Fuengirola" itemValue="Fuengirola"/>
@@ -32,7 +32,7 @@
                         <p:selectOneMenu id="selectCategoria" value="#{controlHome.categoria}" style="width:200px">
 
                             <f:selectItem itemLabel="Evento" itemValue=" "/>
-                            <f:selectItem itemLabel="Musical" itemValue="Conciertos"/>
+                            <f:selectItem itemLabel="Musical" itemValue="Concierto"/>
                             <f:selectItem itemLabel="Teatro" itemValue="Teatro"/>
                             <f:selectItem itemLabel="Deportivo" itemValue="Deportivo"/>
                             <f:selectItem itemLabel="Charlas" itemValue="Charlas"/>
@@ -85,7 +85,7 @@
                     </p:outputLabel>
                     <c:if test="#{(empty controlHome.ubicacion or empty controlHome.categoria or  empty controlHome.fecha)and empty controlHome.busqueda}">
 
-                         <p:dataGrid var="evento" value="#{beanPrincipal.eventos}" class="eventos">
+                         <p:dataGrid var="evento" value="#{controlHome.eventos}" class="eventos">
 
                             <h:panelGrid columns="1" class="eventos2">
                                 <h:graphicImage  style="width:250px; height:200px" value="resources/#{evento.imagen.enlace}"/>
@@ -98,7 +98,7 @@
                         </p:dataGrid>
                     </c:if>
                     <c:if test="#{(!empty controlHome.ubicacion and !empty controlHome.categoria and  !empty controlHome.fecha)  or !empty controlHome.busqueda}">
-                        <p:dataGrid var="evento" value="#{beanPrincipal.eventosFiltrados}"  class="eventos">
+                        <p:dataGrid var="evento" value="#{controlHome.eventosFiltrados}"  class="eventos">
                             <h:panelGrid columns="1" class="eventos2">
                                 <h:graphicImage  style="width:250px; height:200px" value="resources/#{evento.imagen.enlace}"/>
 
