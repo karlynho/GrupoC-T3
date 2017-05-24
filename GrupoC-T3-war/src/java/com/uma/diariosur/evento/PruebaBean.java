@@ -10,11 +10,13 @@ import ControlVistaHome.ControlHome;
 import com.uma.diariosur.entidades.Evento;
 import com.uma.diariosur.entidades.Megusta;
 import com.uma.diariosur.entidades.Valoracion;
+import com.uma.diariosur.negocio.NegocioCarmenLocal;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -45,6 +47,9 @@ public class PruebaBean implements Serializable{
     private String text;
     private MapModel geoModel;
     private String centerGeoMap = "41.850033, -87.6500523";
+    
+    @EJB
+    private NegocioCarmenLocal ncar; 
 
     public MapModel getGeoModel() {
         return geoModel;
@@ -189,7 +194,9 @@ public class PruebaBean implements Serializable{
           Megusta me = new Megusta();
           me.setEvento(eve);
           me.setUsuario(ctrh.getUsuario());
-          ctreve.addMegusta(me);
+          
+          ncar.crearMegusta(me);
+          
           FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "" , "Añadido evento a mis MeGusta");
           FacesContext.getCurrentInstance().addMessage("pm:bm", message);
           return "vistaEvento.xhtml";
