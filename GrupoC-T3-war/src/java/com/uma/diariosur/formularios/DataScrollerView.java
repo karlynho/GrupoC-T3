@@ -4,35 +4,36 @@ package com.uma.diariosur.formularios;
 
 import ControlVistaHome.ControlHome;
 import com.uma.diariosur.entidades.Formulario;
-import com.uma.diariosur.negocio.NegocioCarlos;
 import com.uma.diariosur.negocio.NegocioCarlosLocal;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
  
   
 @SessionScoped
-
+@Named(value = "dataScrollerView")
 public class DataScrollerView implements Serializable {
-      
     @EJB
     private NegocioCarlosLocal nc;
-    
     @Inject
     private ControlHome ctrlhome;
     private List<Formulario> forms;
 
     public List<Formulario> getForms() {
+        forms = nc.listarFormulario();
         return forms;
     }
 
-    public void setForms(List<Formulario> forms) {
-        this.forms = forms;
+    public NegocioCarlosLocal getNc() {
+        return nc;
     }
 
+    public void setNc(NegocioCarlosLocal nc) {
+        this.nc = nc;
+    }
 
     public ControlHome getCtrlhome() {
         return ctrlhome;
@@ -43,8 +44,7 @@ public class DataScrollerView implements Serializable {
     }
   
     public DataScrollerView() {
-        forms = new ArrayList();
-        forms= nc.listarFormulario();
+        
     }
 
     
@@ -55,14 +55,13 @@ public class DataScrollerView implements Serializable {
     public String validar(Formulario f){
         
       nc.validarFormulario(f.getId(), ctrlhome.getPeriodista());
-      nc.rechazarFormulario(f.getId());
        
        return "formularios.xhtml"; 
     }
     
     public String rechazar(Formulario f){
         
-        nc.rechazarFormulario(f.getId());
+        nc.rechazarFormulario(f);
         return "formularios.xhtml"; 
     }
     

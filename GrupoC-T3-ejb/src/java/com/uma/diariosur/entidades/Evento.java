@@ -15,6 +15,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -24,6 +26,13 @@ import javax.persistence.TemporalType;
  *
  * @author Carmen
  */
+@NamedQueries({
+    
+    @NamedQuery(name="lista.eventos",
+                query="SELECT e FROM Evento e "),
+    
+        
+})
 @Entity
 public class Evento implements Serializable {
 
