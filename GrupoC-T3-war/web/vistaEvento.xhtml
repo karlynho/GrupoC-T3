@@ -28,7 +28,7 @@
             <h:form id="colizq" >
                 <p:scrollPanel style="height: 500px; text-align: center;padding-top: 5px;padding-bottom: 50px;" >
                     <h:outputText value="Eventos recomendados"/>
-                    <p:dataGrid var="ev" value="#{beanPrincipal.validos}" columns="1" id="same">
+                    <p:dataGrid var="ev" value="#{controlHome.eventosValidos}" columns="1" id="same">
 
                         <h:graphicImage  style="width:250px; height:200px" value="resources/#{ev.imagen.enlace}"/> <br></br>
                         <h:commandLink action="#{controlHome.verEvento(ev)}" value="#{ev.nombre}" />
@@ -40,7 +40,7 @@
         <!-- Fin columna izquierda-->
         
         <!-- Información sobre el evento-->
-            <p:dataGrid value="#{beanPrincipal.eventoV}" var="eve" id="eventos" style="position: absolute;margin-left: 290px;"  >
+        <p:dataGrid value="#{controlHome.eventoV}" var="eve" id="eventos" style="position: absolute;margin-left: 290px;"  >
 
                 <h:panelGrid columns="2" style="width:100%;"  styleClass="outerpanelgrid"  >
                     <p:outputPanel>
@@ -55,7 +55,7 @@
                                                         <td><p:commandButton icon="ui-icon-star" action="#{pruebaBean.MeGusta(eve)}" ajax="false" ></p:commandButton></td>
                                                     </c:if>
                                             </tr>      
-                                                    <tr><td><p:rating value="#{beanPrincipal.media()}" stars="5" readonly="true" /></td></tr>
+                                                    <tr><td><p:rating value="#{controlHome.media()}" stars="5" readonly="true" /></td></tr>
                                             </h:form>        
                                     </table> </td>
                                 <td>  <table id="ineve">
@@ -65,7 +65,7 @@
                                         <tr><td> <h:outputText value="Fecha de final: #{eve.fecha_final}" /></td></tr>
                                         <h:form>
                                             <c:choose>
-                                                <c:when test="${beanPrincipal.eventoV.precio == 0}">
+                                                <c:when test="${controlHome.eventoV.precio == 0}">
                                                     <tr> <td><h:outputText value="Precio: Gratis" /></td></tr>
                                                 </c:when>
                                                 <c:otherwise>
@@ -101,7 +101,7 @@
 
         <!-- Ubicación y Comentarios -->
             <p:outputPanel id="com" style="padding-top: 20px">
-                <p:dataGrid value="#{beanPrincipal.eventoV}" var="v" style="width: 100%;">
+                <p:dataGrid value="#{controlHome.eventoV}" var="v" style="width: 100%;">
                     <h:outputText value="Ubicación: #{v.ubicacion}" />
                     <input type="hidden" value="#{v.ubicacion}" id="ub" />
                     <script type="text/javascript">
@@ -137,7 +137,7 @@
 
 
 
-                <c:if test="#{not (empty beanPrincipal.eventoV.valoraciones) }">
+                <c:if test="#{not (empty (pruebaBean.consultaV(controlHome.eventoV)))}">
                     <h3 style="clear: both">Comentarios</h3>
 
                     <p:dataGrid var="com" value="#{pruebaBean.comentarios()}"  columns="1" paginator="true"

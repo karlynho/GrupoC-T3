@@ -9,6 +9,7 @@ import BeanPrincipal.BeanPrincipal;
 import com.uma.diariosur.entidades.Evento;
 import com.uma.diariosur.entidades.Periodista;
 import com.uma.diariosur.entidades.Usuario;
+import com.uma.diariosur.entidades.Valoracion;
 import com.uma.diariosur.negocio.NegocioSteven;
 import com.uma.diariosur.negocio.NegocioStevenLocal;
 
@@ -18,6 +19,7 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -49,6 +51,18 @@ public class ControlHome implements Serializable{
     private List<Evento> listaEventosVacia;
     private List<Evento> eventos;
     private List<Evento> eventosFiltrados;
+    private List<Evento> eventosValidos;
+    private Evento eventoV;
+
+    
+    
+    public Evento getEventoV() {
+        return eventoV;
+    }
+
+    public void setEventoV(Evento eventoV) {
+        this.eventoV = eventoV;
+    }
 
     public List<Evento> getEventosFiltrados() {
         return eventosFiltrados;
@@ -75,6 +89,8 @@ public class ControlHome implements Serializable{
      public List<Evento> getEventos() {
          eventos = ns.listarEventos();
         return eventos;
+        
+        
     }
 
     
@@ -275,12 +291,13 @@ public class ControlHome implements Serializable{
     public String verEvento(Evento e){   
        int i = 0;
        int j= 0;
-       bnp.setEventoV(e);
+      
        Evento ev = new Evento();
-        ev=bnp.getEventoV();
+        ev=e;
+        this.eventoV=e;
         List<Evento> validos = new ArrayList<Evento>();
         List<Evento> Novalidos = new ArrayList<Evento>();
-       for (Evento ee : bnp.getEventos()) {
+       for (Evento ee : ns.listarEventos()) {
            if(ee.getCategoria().equals(ev.getCategoria()) && !(ee.getNombre().equals(ev.getNombre())) ){
                validos.add(ee);
                i++;
@@ -303,11 +320,35 @@ public class ControlHome implements Serializable{
            Novalidos.remove(0);
            
        }
-       bnp.setValidos(validos);
+       
+       eventosValidos = validos;
        return "vistaEvento.xhtml";
     }
+
+    public List<Evento> getEventosValidos() {
+        return eventosValidos;
+    }
+
+    public void setEventosValidos(List<Evento> eventosValidos) {
+        this.eventosValidos = eventosValidos;
+    }
     
-    
+      public Integer media(){  
+      if((eventoV.getValoraciones() != null) && (eventoV.getValoraciones().size()>0)){
+            
+            int i= 0;
+        Iterator<Valoracion> it = eventoV.getValoraciones().iterator();
+        Valoracion val = new Valoracion();
+        while(it.hasNext()){
+            val = it.next();
+            i = i+ val.getPuntuacion();
+        }
+        return i / eventoV.getValoraciones().size();
+        }else{
+            return 0;
+        }
+        
+    }
 
 
     
@@ -322,6 +363,9 @@ public class ControlHome implements Serializable{
     public String accederMismegusta(){
         return "Megusta.xhtml";
     }
+    
+    
+    
     
     /**
      * Creates a new instance of ControlHome
