@@ -241,6 +241,34 @@ public class NegocioCarlos implements NegocioCarlosLocal {
         TypedQuery<Evento> query=em.createNamedQuery("lista.eventos",Evento.class);
         return query.getResultList();
     }
+
+    @Override
+    public List<Usuario> listarUsuario() {
+        TypedQuery<Usuario> query=em.createNamedQuery("lista.usuarios",Usuario.class);
+        return query.getResultList();
+    }
+
+    @Override
+    public void actualizarUsuario(Usuario u) {
+        UserTransaction userTxn = sessionContext.getUserTransaction();
+        
+        try{
+            userTxn.begin();
+            em.merge(u);
+            userTxn.commit();
+
+        } catch(Throwable e){
+            try {
+                userTxn.rollback(); //-- Include this in try-catch 
+            } catch (IllegalStateException ex) {
+                Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SecurityException ex) {
+                Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SystemException ex) {
+                Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+  }
+    }
         
  
 }

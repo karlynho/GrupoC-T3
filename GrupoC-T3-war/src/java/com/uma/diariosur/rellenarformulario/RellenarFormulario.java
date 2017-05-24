@@ -5,7 +5,6 @@
  */
 package com.uma.diariosur.rellenarformulario;
 
-import BeanPrincipal.BeanPrincipal;
 import ControlVistaHome.ControlHome;
 import com.uma.diariosur.entidades.Evento;
 import com.uma.diariosur.entidades.Formulario;

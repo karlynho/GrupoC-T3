@@ -55,7 +55,6 @@ public class DataScrollerView implements Serializable {
     public String validar(Formulario f){
         
       nc.validarFormulario(f.getId(), ctrlhome.getPeriodista());
-      nc.rechazarFormulario(f);
        
        return "formularios.xhtml"; 
     }
