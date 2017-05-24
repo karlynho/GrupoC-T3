@@ -79,10 +79,10 @@ public class NegocioCarlos implements NegocioCarlosLocal {
         Imagen img = em.find(Imagen.class, f.getIm_id().getId());
          UserTransaction userTxn = sessionContext.getUserTransaction();
          
-         //Imagen img = em.find(Imagen.class, f.getIm_id().getId());
+       
         try{
             userTxn.begin();
-            em.remove(img);
+            em.remove(f);
             userTxn.commit();
 
         } catch(Throwable e){
