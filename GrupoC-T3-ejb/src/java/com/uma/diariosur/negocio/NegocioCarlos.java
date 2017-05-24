@@ -25,6 +25,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import javax.persistence.TypedQuery;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
@@ -77,25 +81,31 @@ public class NegocioCarlos implements NegocioCarlosLocal {
     
       //  Formulario f_entity = em.find(Formulario.class, id);
         Imagen img = em.find(Imagen.class, f.getIm_id().getId());
-         UserTransaction userTxn = sessionContext.getUserTransaction();
-         
-       
-        try{
+        
+       UserTransaction userTxn = sessionContext.getUserTransaction();
+        try {
             userTxn.begin();
-            em.remove(f);
+            em.remove(em.contains(f) ? f : em.merge(f));
             userTxn.commit();
+        } catch (NotSupportedException ex) {
+            Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SystemException ex) {
+            Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (RollbackException ex) {
+            Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (HeuristicMixedException ex) {
+            Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (HeuristicRollbackException ex) {
+            Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SecurityException ex) {
+            Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalStateException ex) {
+            Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+           
 
-        } catch(Throwable e){
-            try {
-                userTxn.rollback(); //-- Include this in try-catch 
-            } catch (IllegalStateException ex) {
-                Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SecurityException ex) {
-                Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SystemException ex) {
-               Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
-           }
-  }
+        
             
             
         }

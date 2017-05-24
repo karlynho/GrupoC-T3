@@ -50,11 +50,11 @@ public class Formulario implements Serializable {
     private Double precio;
     private String ubicacion;
     
-    @OneToOne(optional = false, cascade = {CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true)
+    @OneToOne(optional = false, cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name="Imagen_ID",referencedColumnName = "id_m")
     private Imagen im_id;
 
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     private Usuario usuario;
     
 
