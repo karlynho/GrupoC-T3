@@ -1,6 +1,10 @@
 /build/
 /GrupoC-T3-war/dist/
 /dist/
+/nbproject/private/
+/GrupoC-T3-war/nbproject/private/
+/GrupoC-T3-ejb/nbproject/private/
 /GrupoC-T3-ejb/build/
-/GrupoC-T3-war/build/
 /GrupoC-T3-ejb/dist/
+/GrupoC-T3-war/build/
+

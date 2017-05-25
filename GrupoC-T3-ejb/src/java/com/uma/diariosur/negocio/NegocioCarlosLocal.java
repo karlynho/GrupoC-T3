@@ -30,4 +30,5 @@ public interface NegocioCarlosLocal {
     void crearUsuario(Usuario u);
     void crearEvento(Evento f);
     void actualizarUsuario(Usuario u);
+
 }

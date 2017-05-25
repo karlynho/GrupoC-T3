@@ -9,8 +9,12 @@ import BeanPrincipal.BeanPrincipal;
 import ControlVistaHome.ControlHome;
 import com.uma.diariosur.entidades.Evento;
 import com.uma.diariosur.entidades.Megusta;
+import com.uma.diariosur.entidades.Usuario;
 import com.uma.diariosur.entidades.Valoracion;
 import com.uma.diariosur.negocio.NegocioCarmenLocal;
+import com.uma.diariosur.negocio.NegocioCarlosLocal;
+import com.uma.diariosur.negocio.NegocioCarmenLocal;
+import com.uma.diariosur.negocio.NegocioStevenLocal;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,6 +22,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -34,7 +39,7 @@ import org.primefaces.model.map.Marker;
  * @author steven
  */
 @Named(value = "pruebaBean")
-@ViewScoped
+@SessionScoped
 
 
 public class PruebaBean implements Serializable{
@@ -51,7 +56,9 @@ public class PruebaBean implements Serializable{
     
     @EJB
     private NegocioCarmenLocal ncar; 
-
+    @EJB
+    private NegocioStevenLocal ns;
+   
     public MapModel getGeoModel() {
         return geoModel;
     }
@@ -95,18 +102,26 @@ public class PruebaBean implements Serializable{
     }
     
     
+    public List<Valoracion> consultaV(Evento e){
+       List<Valoracion> valoraciones = ns.listarValoraciones();
+       List<Valoracion> val= new ArrayList();
+       
+       
+       for(Valoracion v:valoraciones){
+           if(v.getEvento().getId()==e.getId()){
+               val.add(v);
+           }
+       }
+       
+       return val;
+    }
+    
     public List<Valoracion> comentarios() {
-        List<Valoracion> buenas = new ArrayList();
-        val = ctreve.getEventoV().getValoraciones();
-        Iterator<Valoracion> it = val.iterator();
-        Valoracion v = new Valoracion();
-        while (it.hasNext()) {
-            v = it.next();
-            if (!(v.getComentario() == null)) {
-                buenas.add(v);
-            }
-        }
-        return buenas;
+       
+        
+        val = consultaV(ctrh.getEventoV()); 
+   
+        return val;
     }
 
     public String guardarComentario() {
@@ -123,8 +138,14 @@ public class PruebaBean implements Serializable{
             return null;
         }
         
-        Valoracion var =new Valoracion(7777,text, ratinguser, ctrh.getUsuario(),ctreve.getEventoV());
-        ctreve.getEventoV().getValoraciones().add(0, var);
+        Usuario u = ncar.listarUsuario().get(0);
+        
+        Valoracion var = new Valoracion();
+        var.setComentario(text);
+        var.setEvento(ctrh.getEventoV());
+        var.setPuntuacion(ratinguser);
+        var.setUsuario(ctrh.getUsuario());
+        ns.insertarValoracion(var);
         
         this.text=null;
         ratinguser=null; /// para despues de actualizar resetear atributos de val
@@ -196,8 +217,10 @@ public class PruebaBean implements Serializable{
           
           me.setEvento(eve);
           me.setUsuario(ctrh.getUsuario());
+
           
           ncar.crearMegusta(me);
+
           
           FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "" , "Añadido evento a mis MeGusta");
           FacesContext.getCurrentInstance().addMessage("pm:bm", message);
@@ -215,7 +238,7 @@ public class PruebaBean implements Serializable{
              
             for (int i = 0; i < results.size(); i++) {
                 GeocodeResult result = results.get(i);
-                geoModel.addOverlay(new Marker(result.getLatLng(), ctreve.getEventoV().getNombre()));
+                geoModel.addOverlay(new Marker(result.getLatLng(), ctrh.getEventoV().getNombre()));
             }
         }
     }

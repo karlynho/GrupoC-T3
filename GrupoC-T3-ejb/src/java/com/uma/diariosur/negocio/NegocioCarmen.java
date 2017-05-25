@@ -5,6 +5,7 @@
  */
 package com.uma.diariosur.negocio;
 
+
 import com.uma.diariosur.entidades.Formulario;
 import com.uma.diariosur.entidades.Megusta;
 import com.uma.diariosur.entidades.Usuario;
@@ -26,6 +27,7 @@ import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
+
 /**
  *
  * @author Carmen
@@ -33,13 +35,13 @@ import javax.transaction.UserTransaction;
 @Stateless
 @TransactionManagement(TransactionManagementType.BEAN)
 public class NegocioCarmen implements NegocioCarmenLocal {
-    
+
     @PersistenceContext(name = "GrupoC-T3-ejbPU")
     private EntityManager em;
     @Resource
     private SessionContext sessionContext;
-    
-    
+
+   
        @Override
     public List<Megusta> listarMegusta() {
         TypedQuery<Megusta> query=em.createNamedQuery("lista.megusta",Megusta.class);
@@ -148,10 +150,21 @@ public class NegocioCarmen implements NegocioCarmenLocal {
         } catch(Throwable e){
             try {
                 userTxn.rollback(); //-- Include this in try-catch 
-            } catch (IllegalStateException ex) {
-                Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SecurityException ex) {
-                Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+=======
+
+
+    @Override
+    public void crearMegusta(Megusta m) {
+        UserTransaction userTxn = sessionContext.getUserTransaction();
+
+        try {
+            userTxn.begin();
+            em.persist(m);
+            userTxn.commit();
+
+        } catch (Throwable e) {
+            try {
+                //userTxn.rollback(); //-- Include this in try-catch 
             } catch (SystemException ex) {
                 Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -164,20 +177,4 @@ public class NegocioCarmen implements NegocioCarmenLocal {
     }
     
     
-    public Usuario buscarUsuario(String nick){
-        
-        Usuario user = em.find(Usuario.class, nick);
-        
-        if(user== null){
-            return null;
-        }else{
-            return user;
-        }
-    }
-    
-}
-
-
-
-
-
+   

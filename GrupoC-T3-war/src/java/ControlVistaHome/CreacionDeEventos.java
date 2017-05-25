@@ -8,6 +8,7 @@ package ControlVistaHome;
 
 import BeanPrincipal.BeanPrincipal;
 import com.uma.diariosur.entidades.Evento;
+import com.uma.diariosur.negocio.NegocioStevenLocal;
 
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -16,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -34,8 +36,43 @@ import javax.inject.Named;
 
 public class CreacionDeEventos implements Serializable {
 
-    private List<Evento> eventos;
+
     private List<Evento> eventosFiltrados;
+   
+    private String busqueda;
+
+
+    public List<Evento> getEventosFiltrados() {
+        return eventosFiltrados;
+    }
+
+    public void setEventosFiltrados(List<Evento> eventosFiltrados) {
+        this.eventosFiltrados = eventosFiltrados;
+    }
+
+    public BeanPrincipal getBnp() {
+        return bnp;
+    }
+
+    public void setBnp(BeanPrincipal bnp) {
+        this.bnp = bnp;
+    }
+
+    public ControlHome getCtrlhome() {
+        return ctrlhome;
+    }
+
+    public void setCtrlhome(ControlHome ctrlhome) {
+        this.ctrlhome = ctrlhome;
+    }
+
+    public NegocioStevenLocal getNs() {
+        return ns;
+    }
+
+    public void setNs(NegocioStevenLocal ns) {
+        this.ns = ns;
+    }
     private Date fechaVacia;
 
     public Date getFechaVacia() {
@@ -50,24 +87,26 @@ public class CreacionDeEventos implements Serializable {
     BeanPrincipal bnp;
     @Inject
     ControlHome ctrlhome;
+    
+    @EJB
+    private NegocioStevenLocal ns;
 
 
-    public List<Evento> getEventos() {
-        return eventos;
-    }
-
-    public void setEventos(List<Evento> eventos) {
-        this.eventos = eventos;
-    }
+  
+    
+    
+    
+    
+    
 
     public String comprobacion(String evento, String ubicacion, String categoria, Date fecha) throws ParseException {
 
-        eventos = new ArrayList<>();
+         List<Evento> eventos = new ArrayList<>();
 
-        eventos = bnp.getEventos();
-        eventosFiltrados = new ArrayList<Evento>();
+         eventos = ns.listarEventos();
+         eventosFiltrados = new ArrayList();
 
-        boolean encontrado = false;
+       
         int tam = eventos.size();
         int i = 0;
         int valor = 0;
@@ -87,40 +126,51 @@ public class CreacionDeEventos implements Serializable {
         
         
         
-        while (i < tam && !encontrado) {
-            if (eventos.get(i).getNombre().equalsIgnoreCase(evento) && evento != null) {
-                System.out.println("Se ha recogido el nombre");
-                //El nombre coincide con uno o muchos eventos, lo añadimos al la lista de filtrados
-                eventosFiltrados.add(eventos.get(i));
-                encontrado = true;
-            } else if (eventos.get(i).getUbicacion().equalsIgnoreCase(ubicacion) || (eventos.get(i).getUbicacion().toUpperCase().contains(ubicacion.toUpperCase()))) {
-                System.out.println("No ha recogido el nombre");
+        while (i < tam) {
+            
+            
+            
+            if (eventos.get(i).getUbicacion().equalsIgnoreCase(ubicacion) || (eventos.get(i).getUbicacion().toUpperCase().contains(ubicacion.toUpperCase()))) {
+               
                 //La ubicacion coincide,  comprobamos la categoria
                 if (eventos.get(i).getCategoria().equalsIgnoreCase(categoria)) {
                     //La categoria coincide, comprobamos la fecha
+                   
                     if (eventos.get(i).getFecha_inicio().getDay()==dia && eventos.get(i).getFecha_inicio().getMonth()==mes && 
                             eventos.get(i).getFecha_inicio().getYear()==año && valor==0) {
                         //Coinciden las tres condiciones del filtro, entonces añadimos a la lista de filtrados
-                        eventosFiltrados.add(eventos.get(i));
-
+                           
+                         eventosFiltrados.add(eventos.get(i));
                     }
+                    
+                    
                 }
 
             }
 
             i++;
         }
+        
 
         if (eventosFiltrados.isEmpty()) {
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error" , "No hay coincidencias con el filtro");
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error" , "No hay coincidencias con el filtro adioss");
             FacesContext.getCurrentInstance().addMessage("controlHome:principal", message);
             return null;
         } else {
-            System.out.println("Si hay filtro");
-            bnp.setEventosFiltrados(eventosFiltrados);
+            
+             ctrlhome.setEventosFiltrados(eventosFiltrados);
+            
             return "PaginaHome.xhtml";
         }
 
+    }
+
+    public String getBusqueda() {
+        return busqueda;
+    }
+
+    public void setBusqueda(String busqueda) {
+        this.busqueda = busqueda;
     }
     
 

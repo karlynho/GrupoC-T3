@@ -20,10 +20,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
 
-/**
- *
- * @author Carmen
- */
 @NamedQueries({
     
     @NamedQuery(name="lista.usuarios",
