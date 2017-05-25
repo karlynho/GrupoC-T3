@@ -50,7 +50,7 @@ public class NegocioSteven implements NegocioStevenLocal {
     
     @Override
     public List<Evento> listarEventos(){
-         TypedQuery<Evento> query=em.createNamedQuery("lista.Eventos", Evento.class);
+         TypedQuery<Evento> query=em.createNamedQuery("lista.eventos", Evento.class);
         return query.getResultList();
     }
 
