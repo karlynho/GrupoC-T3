@@ -78,6 +78,10 @@ public class Registro {
     BeanPrincipal bnp;
 
     public String registrarUsuario() throws ParseException {
+        
+        
+        
+        
         usuario = new Usuario();
 
         if (this.Nick.isEmpty()) {
