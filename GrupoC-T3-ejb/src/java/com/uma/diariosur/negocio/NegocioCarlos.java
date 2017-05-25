@@ -251,12 +251,6 @@ public class NegocioCarlos implements NegocioCarlosLocal {
     }
 
     @Override
-    public List<Usuario> listarUsuario() {
-        TypedQuery<Usuario> query=em.createNamedQuery("lista.usuarios",Usuario.class);
-        return query.getResultList();
-    }
-
-    @Override
     public void actualizarUsuario(Usuario u) {
         UserTransaction userTxn = sessionContext.getUserTransaction();
         
