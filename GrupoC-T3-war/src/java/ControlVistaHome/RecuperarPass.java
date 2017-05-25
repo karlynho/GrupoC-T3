@@ -6,6 +6,8 @@
 package ControlVistaHome;
 
 import BeanPrincipal.BeanPrincipal;
+import com.uma.diariosur.entidades.Usuario;
+import com.uma.diariosur.negocio.NegocioCarlosLocal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.inject.Named;
@@ -15,6 +17,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import java.util.Properties;
 import java.util.Random;
+import javax.ejb.EJB;
 import javax.mail.Message;
 import javax.mail.Multipart;
 import javax.mail.Session;
@@ -39,10 +42,22 @@ public class RecuperarPass {
     private BeanPrincipal bnp;
     private Pattern pattern;
 
+    @EJB
+    private NegocioCarlosLocal nc;
+    
+    
     public Pattern getPattern() {
         return pattern;
     }
 
+     public NegocioCarlosLocal getNc() {
+        return nc;
+    }
+
+    public void setNc(NegocioCarlosLocal nc) {
+        this.nc = nc;
+    }
+    
     public void setPattern(Pattern pattern) {
         this.pattern = pattern;
     }
@@ -102,9 +117,9 @@ public class RecuperarPass {
             boolean encontrado=false;
             int aux = 0;
         
-            while(i<bnp.getUsuarios().size() && !encontrado){
+            while(i<nc.listarUsuario().size() && !encontrado){
             
-                if(bnp.getUsuarios().get(i).getEmail().equalsIgnoreCase(this.email)){
+                if(nc.listarUsuario().get(i).getEmail().equalsIgnoreCase(this.email)){
                     encontrado = true;
                     aux = i;
                 }
@@ -144,7 +159,9 @@ public class RecuperarPass {
             transport.sendMessage(mime, mime.getAllRecipients());
             transport.close();
             
-            bnp.cambiar_pass(aux,new_pass);
+            Usuario u = nc.listarUsuario().get(aux);
+            u.setPassword(new_pass);
+            nc.actualizarUsuario(u);
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "" , "Correo electronico de recuperacion enviado, revise su bandeja de entrada");
             FacesContext.getCurrentInstance().addMessage("recuperar_pass:reenviar", message);
             return null;

@@ -34,11 +34,13 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 
 
+
 @NamedQueries({
      
-     @NamedQuery(name="lista.Eventos",query="SELECT e FROM Evento e "),
+     @NamedQuery(name="lista.eventos",query="SELECT e FROM Evento e "),
      
  })
+
 
 
 @Entity
