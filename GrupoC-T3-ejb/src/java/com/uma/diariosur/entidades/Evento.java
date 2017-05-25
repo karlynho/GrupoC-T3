@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -38,6 +39,7 @@ public class Evento implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @Column(name="ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String nombre;
@@ -49,7 +51,7 @@ public class Evento implements Serializable {
     private Date fecha_final;
     private Double precio;
     private String ubicacion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "evento")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "evento")
     private List<Megusta> meGusta;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "evento")

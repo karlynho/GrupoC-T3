@@ -16,6 +16,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -177,7 +178,7 @@ public class PruebaBean implements Serializable{
         boolean encontrado = false;
         for(Megusta m: ctrh.getUsuario().getMegusta()){
             if(m.getUsuario().getNick().equals(ctrh.getUsuario().getNick())){
-                if(m.getEvento().getNombre().equals(eve.getNombre())){
+                if(m.getEvento().getId() == eve.getId()){
                      encontrado=true;
                  }
             }
@@ -192,6 +193,7 @@ public class PruebaBean implements Serializable{
         
       else{
           Megusta me = new Megusta();
+          
           me.setEvento(eve);
           me.setUsuario(ctrh.getUsuario());
           

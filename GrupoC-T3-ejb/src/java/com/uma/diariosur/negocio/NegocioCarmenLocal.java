@@ -6,6 +6,8 @@
 package com.uma.diariosur.negocio;
 
 import com.uma.diariosur.entidades.Megusta;
+import com.uma.diariosur.entidades.Usuario;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -15,6 +17,20 @@ import javax.ejb.Local;
 @Local
 public interface NegocioCarmenLocal {
 
-    public void crearMegusta(Megusta m);
+    void crearMegusta(Megusta m);
+
+    
+
+    List<Megusta> listarMegusta();
+
+    void eliminarMegusta(Megusta e);
+
+    void actualizarEmail(Usuario u);
+
+    void actualizarPassword(Usuario u);
+
+    public Usuario buscarUsuario(String nick);
+    
+    
     
 }

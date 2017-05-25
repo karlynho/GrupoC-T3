@@ -37,7 +37,7 @@
         
         
         <h:form>
-            <p:dataGrid var="Usuario" value="#{controlHome.usuario}" columns="4"  rows="4"  id="usuario" style="width: 800px;">
+            <p:dataGrid var="Usuario" value="#{ajustes.usuarioB()}" columns="4"  rows="4"  id="usuario" style="width: 800px;">
             <h:panelGrid id="Grid" columns="4" style=" background: none">
                 <p:outputLabel style="font-size: medium; padding: 20px; color: #006" value="Nombre de usuario" />
                 <h:outputText value="#{Usuario.nick}" style="font-size: medium" />

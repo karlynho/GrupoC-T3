@@ -234,6 +234,7 @@ public class BeanPrincipal implements Serializable{
        
         
         Date fecha= (Date)formatter.parse("12/05/1993");
+         Date fecha2= (Date)formatter.parse("14/10/0193");
         
         
        usuarios = new ArrayList<>();
@@ -251,8 +252,8 @@ public class BeanPrincipal implements Serializable{
        u1.setApellidos("Moreno");
        u1.setPassword("hola");
        u1.setNick("CarmenB");
-       u1.setEmail("carmen_06_95@hotmail.com");
-       u1.setFecha_nacimiento(fecha);
+       u1.setEmail("carmen@hotmail.com");
+       u1.setFecha_nacimiento(fecha2);
        usuarios.add(u1);
        
        
@@ -323,6 +324,7 @@ public class BeanPrincipal implements Serializable{
         
         eventos = new ArrayList<>();
         Evento e1 = new Evento();
+        e1.setId(1);
         e1.setNombre("Red Hot Chili Peppers");
         e1.setCategoria("Conciertos");
         e1.setDescripcion("Los Red Hot Chili Peppers visitan España por primera vez desde hace 5 años y vienen a Malaga"
@@ -337,6 +339,7 @@ public class BeanPrincipal implements Serializable{
         
         
         Evento e2 = new Evento();
+        e2.setId(2);
         e2.setNombre("Uni vs RMB");
         e2.setCategoria("Deportivo");
         e2.setDescripcion("Partido perteneciente a la jornada numero 12 de la Liga Endesa entre el líder de la clasificacion"
@@ -504,9 +507,7 @@ public class BeanPrincipal implements Serializable{
         m3.setUsuario(u);
         m3.setEvento(e2);
        
-         megusta.add(m1);
-         megusta.add(m3);
-         megusta.add(m2);
+        
         
         u.setMegusta(megusta);
         
