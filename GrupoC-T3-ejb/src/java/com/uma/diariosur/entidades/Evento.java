@@ -55,15 +55,16 @@ public class Evento implements Serializable {
     private String nombre;
     private String descripcion;
     private String categoria;
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fecha_inicio;
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fecha_final;
     private Double precio;
     private String ubicacion;
 
-    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "evento", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "evento")
     private List<Megusta> meGusta;
+    
     @OneToMany(cascade = CascadeType.MERGE, mappedBy = "evento")
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Valoracion> valoraciones;

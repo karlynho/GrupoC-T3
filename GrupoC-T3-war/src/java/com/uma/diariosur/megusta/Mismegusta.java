@@ -5,7 +5,7 @@
  */
 package com.uma.diariosur.megusta;
 
-import BeanPrincipal.BeanPrincipal;
+
 import ControlVistaHome.ControlHome;
 import com.uma.diariosur.entidades.Megusta;
 import com.uma.diariosur.negocio.NegocioCarmenLocal;
@@ -41,8 +41,7 @@ public class Mismegusta implements Serializable{
     @EJB
     private NegocioCarmenLocal ncar;
     
-    @Inject
-    private BeanPrincipal bp;
+
     @Inject
     private ControlHome ch;
     
@@ -76,13 +75,7 @@ public class Mismegusta implements Serializable{
     
     
 
-    public BeanPrincipal getBp() {
-        return bp;
-    }
-
-    public void setBp(BeanPrincipal bp) {
-        this.bp = bp;
-    }
+   
 
     public ControlHome getCh() {
         return ch;

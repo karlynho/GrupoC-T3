@@ -5,7 +5,7 @@
  */
 package ControlVistaHome;
 
-import BeanPrincipal.BeanPrincipal;
+
 import com.uma.diariosur.entidades.Megusta;
 import com.uma.diariosur.entidades.Usuario;
 import com.uma.diariosur.entidades.Valoracion;
@@ -74,19 +74,19 @@ public class Registro {
         this.repas = repas;
     }
 
-    @Inject
-    BeanPrincipal bnp;
+    
+    
 
     public String registrarUsuario() throws ParseException {
         usuario = new Usuario();
-
+        List<Usuario> us = nc.listarUsuario();
         if (this.Nick.isEmpty()) {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "El campo Nombre de Usuario no puede estar vacio");
             FacesContext.getCurrentInstance().addMessage("registro:nick", message);
             return null;
         } else {
 
-            for (Usuario u : bnp.getUsuarios()) {
+            for (Usuario u : us) {
                 if (u.getNick().equals(this.Nick)) {
                     FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Este nombre de usuario no esta disponible");
                     FacesContext.getCurrentInstance().addMessage("registro:nick", message);
@@ -153,7 +153,7 @@ public class Registro {
 
                 if (this.email.equals(this.emailrepas)) {
 
-                    for (Usuario u : bnp.getUsuarios()) {
+                    for (Usuario u : us) {
                         if (u.getEmail().equals(this.email)) {
                             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Este correo ya esta asociado a otra cuenta");
                             FacesContext.getCurrentInstance().addMessage("registro:emailrepas", message);
@@ -299,13 +299,7 @@ public class Registro {
         this.usuario = usuario;
     }
 
-    public BeanPrincipal getBnp() {
-        return bnp;
-    }
-
-    public void setBnp(BeanPrincipal bnp) {
-        this.bnp = bnp;
-    }
+   
 
     public String getContraseña() {
         return contraseña;

@@ -7,7 +7,7 @@
 package ControlVistaHome;
 
 
-import BeanPrincipal.BeanPrincipal;
+
 import com.uma.diariosur.entidades.Periodista;
 import com.uma.diariosur.entidades.Usuario;
 import com.uma.diariosur.negocio.NegocioPabloLocal;
@@ -33,8 +33,8 @@ public class Login {
     private boolean encontrado;
     @Inject 
     private ControlHome ctrlhome;
-    @Inject
-    private BeanPrincipal bnp;
+   
+  
     private List<Usuario> usuarios;
     private List<Periodista>periodistas;
     
@@ -72,10 +72,7 @@ public class Login {
         this.ctrlhome = ctrlhome;
     }
 
-    public BeanPrincipal getBnp() {
-        return bnp;
-    }
-
+  
     public boolean isEncontrado() {
         return encontrado;
     }

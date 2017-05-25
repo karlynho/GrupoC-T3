@@ -5,7 +5,7 @@
  */
 package ControlVistaHome;
 
-import BeanPrincipal.BeanPrincipal;
+
 import com.uma.diariosur.entidades.Usuario;
 import com.uma.diariosur.negocio.NegocioCarlosLocal;
 import java.util.regex.Matcher;
@@ -38,8 +38,8 @@ public class RecuperarPass {
     private String email;
     @Inject 
     private ControlHome ctrlhome;
-    @Inject
-    private BeanPrincipal bnp;
+  
+
     private Pattern pattern;
 
     @EJB
@@ -78,13 +78,7 @@ public class RecuperarPass {
         this.ctrlhome = ctrlhome;
     }
 
-    public BeanPrincipal getBnp() {
-        return bnp;
-    }
-
-    public void setBnp(BeanPrincipal bnp) {
-        this.bnp = bnp;
-    }
+  
     
     
     public String recuperar(){

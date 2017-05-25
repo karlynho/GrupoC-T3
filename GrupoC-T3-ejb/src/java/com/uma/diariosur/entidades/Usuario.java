@@ -19,6 +19,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 
 @NamedQueries({
@@ -49,6 +51,7 @@ public class Usuario implements Serializable {
     private List<Formulario> formulario;
     
     @OneToMany(cascade = CascadeType.MERGE, mappedBy = "usuario")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Megusta> megusta;
 
 

@@ -6,7 +6,7 @@
  */
 package ControlVistaHome;
 
-import BeanPrincipal.BeanPrincipal;
+
 import com.uma.diariosur.entidades.Evento;
 import com.uma.diariosur.negocio.NegocioStevenLocal;
 
@@ -50,13 +50,7 @@ public class CreacionDeEventos implements Serializable {
         this.eventosFiltrados = eventosFiltrados;
     }
 
-    public BeanPrincipal getBnp() {
-        return bnp;
-    }
-
-    public void setBnp(BeanPrincipal bnp) {
-        this.bnp = bnp;
-    }
+    
 
     public ControlHome getCtrlhome() {
         return ctrlhome;
@@ -83,8 +77,7 @@ public class CreacionDeEventos implements Serializable {
         this.fechaVacia = fechaVacia;
     }
 
-    @Inject
-    BeanPrincipal bnp;
+   
     @Inject
     ControlHome ctrlhome;
     
@@ -123,16 +116,12 @@ public class CreacionDeEventos implements Serializable {
              año = fecha.getYear();
         }
 
-        
-        
-        
+       
         while (i < tam) {
-            
-            
-            
-            if (eventos.get(i).getUbicacion().equalsIgnoreCase(ubicacion) || (eventos.get(i).getUbicacion().toUpperCase().contains(ubicacion.toUpperCase()))) {
                
-                //La ubicacion coincide,  comprobamos la categoria
+            if (eventos.get(i).getUbicacion().equalsIgnoreCase(ubicacion) || (eventos.get(i).getUbicacion().toUpperCase().contains(ubicacion.toUpperCase()))) {
+             
+               //La ubicacion coincide,  comprobamos la categoria
                 if (eventos.get(i).getCategoria().equalsIgnoreCase(categoria)) {
                     //La categoria coincide, comprobamos la fecha
                    

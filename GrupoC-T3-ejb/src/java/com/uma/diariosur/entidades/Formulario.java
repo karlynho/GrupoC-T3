@@ -38,14 +38,14 @@ public class Formulario implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String estado;
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date fecha_subida;
     private String nombre;
     private String descripcion;
     private String categoria;
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date fecha_inicio;
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date fecha_fin;
     private Double precio;
     private String ubicacion;

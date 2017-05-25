@@ -5,7 +5,7 @@
  * and open the template in the editor.
  */
 package ControlVistaHome;
-import BeanPrincipal.BeanPrincipal;
+
 import com.uma.diariosur.entidades.Evento;
 import com.uma.diariosur.entidades.Periodista;
 import com.uma.diariosur.entidades.Usuario;
@@ -35,8 +35,7 @@ import javax.inject.Inject;
 
 
 public class ControlHome implements Serializable{
-    @Inject
-    private BeanPrincipal bnp;
+
   
     private Usuario usuario;
     private Periodista periodista;
@@ -172,14 +171,7 @@ public class ControlHome implements Serializable{
    
 
 
-    public BeanPrincipal getBnp() {
-        return bnp;
-    }
-
-    public void setBnp(BeanPrincipal bnp) {
-        this.bnp = bnp;
-       
-    }
+   
     
     
     public String getEvento() {

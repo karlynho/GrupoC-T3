@@ -5,7 +5,7 @@
  * and open the template in the editor.
  */
 package com.uma.diariosur.evento;
-import BeanPrincipal.BeanPrincipal;
+
 import ControlVistaHome.ControlHome;
 import com.uma.diariosur.entidades.Evento;
 import com.uma.diariosur.entidades.Megusta;
@@ -42,8 +42,7 @@ import org.primefaces.model.map.Marker;
 @Named(value = "pruebaBean")
 @SessionScoped
 public class PruebaBean implements Serializable{
-    @Inject
-    private BeanPrincipal ctreve;
+   
     @Inject
     private ControlHome ctrh;
     private List<Valoracion> val;
@@ -76,14 +75,7 @@ public class PruebaBean implements Serializable{
     
     
 
-    public BeanPrincipal getCtreve() {
-        return ctreve;
-    }
-
-    public void setCtreve(BeanPrincipal ctreve) {
-        this.ctreve = ctreve;
-    }
-
+  
     public List<Valoracion> getVal() {
         return val;
     }
@@ -107,7 +99,7 @@ public class PruebaBean implements Serializable{
        
        
        for(Valoracion v:valoraciones){
-           if(v.getEvento().getId()==e.getId()){
+           if(v.getEvento().getId().equals(e.getId())){
                val.add(v);
            }
        }
@@ -196,7 +188,7 @@ public class PruebaBean implements Serializable{
         boolean encontrado = false;
         for(Megusta m: ctrh.getUsuario().getMegusta()){
             if(m.getUsuario().getNick().equals(ctrh.getUsuario().getNick())){
-                if(m.getEvento().getId() == eve.getId()){
+                if(m.getEvento().getId().equals(eve.getId())){
                      encontrado=true;
                  }
             }

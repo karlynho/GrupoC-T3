@@ -5,7 +5,7 @@
  */
 package com.uma.diariosur.ajustes;
 
-import BeanPrincipal.BeanPrincipal;
+
 import ControlVistaHome.ControlHome;
 import com.uma.diariosur.entidades.Usuario;
 import com.uma.diariosur.negocio.NegocioCarlosLocal;
@@ -31,8 +31,7 @@ public class Ajustes implements Serializable{
     /**
      * Creates a new instance of Ajustes
      */
-    @Inject
-    private BeanPrincipal bp;
+ 
     @Inject
     private ControlHome ch;
     private Usuario usuario;
@@ -80,10 +79,7 @@ public class Ajustes implements Serializable{
         return ch;
     }
   
-   public Usuario User(){
-       usuario = bp.user();
-       return usuario;
-   } 
+   
    
     
     
