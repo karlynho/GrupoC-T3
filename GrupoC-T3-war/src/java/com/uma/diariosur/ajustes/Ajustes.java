@@ -143,7 +143,7 @@ public class Ajustes implements Serializable{
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Los campos están vacíos"));
             return null;
              
-        }else if(!contraseña.equals(ch.getUsuario().getPassword())){
+        }else if(!contraseña.equals(nc.listarUsuario().get(i).getPassword())){
              FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("La contraseña introducida no es la correcta"));
              return null;
         }else if(!contraseñanueva.equals(contraseñanueva1)){
