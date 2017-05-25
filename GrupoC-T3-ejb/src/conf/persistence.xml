@@ -4,6 +4,9 @@
     <jta-data-source>java:/DiarioSur</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
+       
     </properties>
+    
+    
   </persistence-unit>
 </persistence>

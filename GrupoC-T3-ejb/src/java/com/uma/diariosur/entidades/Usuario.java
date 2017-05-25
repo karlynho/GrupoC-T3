@@ -19,6 +19,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
 
+
+
+
+@NamedQueries({
+    
+    @NamedQuery(name="lista.usuarios",
+                query="SELECT u FROM Usuario u "),
+    
+        
+})
+
 /**
  *
  * @author Carmen

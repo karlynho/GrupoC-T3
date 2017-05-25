@@ -24,11 +24,13 @@ import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+
 import javax.persistence.TypedQuery;
 import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
 import javax.transaction.NotSupportedException;
 import javax.transaction.RollbackException;
+
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
@@ -213,6 +215,12 @@ public class NegocioCarlos implements NegocioCarlosLocal {
             }
           }
 } 
+    
+    @Override
+    public List<Usuario> listarUsuario() {
+        TypedQuery<Usuario> query=em.createNamedQuery("lista.usuarios",Usuario.class);
+        return query.getResultList();
+    }
 
     @Override
     public void crearEvento(Evento f) {

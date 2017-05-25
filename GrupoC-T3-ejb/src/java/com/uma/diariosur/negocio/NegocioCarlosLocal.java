@@ -29,5 +29,9 @@ public interface NegocioCarlosLocal {
     void crearImagen(Imagen img);
     void crearUsuario(Usuario u);
     void crearEvento(Evento f);
+
+    List<Usuario> listarUsuario();
+
     void actualizarUsuario(Usuario u);
+
 }

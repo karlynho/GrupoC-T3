@@ -9,7 +9,9 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,19 +23,28 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 /**
  *
  * @author Carmen
  */
+
+
+
+
+
 @NamedQueries({
-    
-    @NamedQuery(name="lista.eventos",
-                query="SELECT e FROM Evento e "),
-    
-        
-})
+     
+     @NamedQuery(name="lista.eventos",query="SELECT e FROM Evento e "),
+     
+ })
+
+
+
 @Entity
+
 public class Evento implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -49,10 +60,14 @@ public class Evento implements Serializable {
     private Date fecha_final;
     private Double precio;
     private String ubicacion;
+    
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "evento")
     private List<Megusta> meGusta;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "evento")
+   
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "evento")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Valoracion> valoraciones;
     
     
@@ -200,6 +215,9 @@ public class Evento implements Serializable {
     
 
     
+     
+    
+
      
     
 
