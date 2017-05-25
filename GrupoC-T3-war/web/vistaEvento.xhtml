@@ -140,7 +140,7 @@
                 <c:if test="#{not (empty (pruebaBean.consultaV(controlHome.eventoV)))}">
                     <h3 style="clear: both">Comentarios</h3>
 
-                    <p:dataGrid var="com" value="#{pruebaBean.comentarios()}"  columns="1" paginator="true"
+                    <p:dataGrid var="com" value="#{pruebaBean.comentarios()}"  columns="1" paginator="true" rows="6"
                                 currentPageReportTemplate="{currentPage} de {totalPages}"
                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} "
                                 rowsPerPageTemplate="6,10,15" >

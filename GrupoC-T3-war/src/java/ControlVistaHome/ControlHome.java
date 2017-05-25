@@ -141,9 +141,11 @@ public class ControlHome implements Serializable{
             this.eventosFiltrados = ev;
             return "PaginaHome.xhtml";
         }else{
+            
+            this.eventosFiltrados=ns.listarEventos();
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error" , "No se han encontrado coincidencias.");
             FacesContext.getCurrentInstance().addMessage("menu:bus", message);
-            
+           
             return null;
         }      
     }
@@ -336,12 +338,12 @@ public class ControlHome implements Serializable{
       public Integer media(){  
       if((eventoV.getValoraciones() != null) && (eventoV.getValoraciones().size()>0)){
             
-            int i= 0;
+        int i= 0;
         Iterator<Valoracion> it = eventoV.getValoraciones().iterator();
         Valoracion val = new Valoracion();
         while(it.hasNext()){
             val = it.next();
-            i = i+ val.getPuntuacion();
+            i =  (i+ val.getPuntuacion());
         }
         return i / eventoV.getValoraciones().size();
         }else{

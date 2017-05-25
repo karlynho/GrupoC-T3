@@ -24,6 +24,7 @@ import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
@@ -162,6 +163,12 @@ public class NegocioCarlos implements NegocioCarlosLocal {
             }
           }
 } 
+    
+    @Override
+    public List<Usuario> listarUsuario() {
+        TypedQuery<Usuario> query=em.createNamedQuery("lista.usuarios",Usuario.class);
+        return query.getResultList();
+    }
 
     @Override
     public void crearEvento(Evento f) {

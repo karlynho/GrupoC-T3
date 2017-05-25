@@ -72,12 +72,14 @@ public class NegocioSteven implements NegocioStevenLocal {
 
         } catch(Throwable e){
             try {
-           //     userTxn.rollback(); //-- Include this in try-catch 
+             userTxn.rollback(); //-- Include this in try-catch 
             } catch (IllegalStateException ex) {
                 Logger.getLogger(NegocioSteven.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SecurityException ex) {
                 Logger.getLogger(NegocioSteven.class.getName()).log(Level.SEVERE, null, ex);
             
+            } catch (SystemException ex) {
+                Logger.getLogger(NegocioSteven.class.getName()).log(Level.SEVERE, null, ex);
             } 
   }
     }

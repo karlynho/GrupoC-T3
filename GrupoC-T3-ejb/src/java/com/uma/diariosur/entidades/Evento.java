@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -57,12 +58,14 @@ public class Evento implements Serializable {
     private Date fecha_final;
     private Double precio;
     private String ubicacion;
+    
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "evento")
     private List<Megusta> meGusta;
     
    
     @OneToMany(cascade = CascadeType.MERGE, mappedBy = "evento")
-   // @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Valoracion> valoraciones;
     
     

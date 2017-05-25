@@ -83,22 +83,6 @@ public class BeanPrincipal implements Serializable{
   
   
 
-  public Integer media(){  
-      if((eventoV.getValoraciones() != null) && (eventoV.getValoraciones().size()>0)){
-            
-            int i= 0;
-        Iterator<Valoracion> it = eventoV.getValoraciones().iterator();
-        Valoracion val = new Valoracion();
-        while(it.hasNext()){
-            val = it.next();
-            i = i+ val.getPuntuacion();
-        }
-        return i / eventoV.getValoraciones().size();
-        }else{
-            return 0;
-        }
-        
-    }
     public List<Megusta> getMegusta() {
         return megusta;
     }
@@ -465,7 +449,7 @@ public class BeanPrincipal implements Serializable{
         eventos.add(e7);
         eventos.add(e8);
         eventos.add(e9);
-        
+        /*
         Valoracion v1= new Valoracion(1234,"Me ha parecido muy bueno", 3,u, e1);
         Valoracion v2= new Valoracion(1235,"Ha sido muy bueno", 5,u, e1);
         Valoracion v3= new Valoracion(1236,"Me ha encantado", 4,u, e1);
@@ -487,7 +471,7 @@ public class BeanPrincipal implements Serializable{
          e7.setValoraciones(v_vacia);
          e8.setValoraciones(v_vacia);
          e9.setValoraciones(v_vacia);
-
+*/
 
       
         
