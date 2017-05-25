@@ -8,7 +8,10 @@ package com.uma.diariosur.ajustes;
 import BeanPrincipal.BeanPrincipal;
 import ControlVistaHome.ControlHome;
 import com.uma.diariosur.entidades.Usuario;
+import com.uma.diariosur.negocio.NegocioCarlosLocal;
+import com.uma.diariosur.negocio.NegocioCarmenLocal;
 import java.io.Serializable;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -37,6 +40,31 @@ public class Ajustes implements Serializable{
     private String contraseñanueva;
     private String contraseñanueva1;
     private String emailnuevo;
+    
+    
+    @EJB
+    private NegocioCarmenLocal ncar;
+    
+    @EJB
+    private NegocioCarlosLocal nc;
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public NegocioCarmenLocal getNcar() {
+        return ncar;
+    }
+
+    public void setNcar(NegocioCarmenLocal ncar) {
+        this.ncar = ncar;
+    }
+    
+    
 
     public String getEmailnuevo() {
         return emailnuevo;
@@ -96,15 +124,26 @@ public class Ajustes implements Serializable{
     
     public String comprueba(){
         
+        int i = 0;
+        while(i<nc.listarUsuario().size() && !ch.getUsuario().getNick().equals(nc.listarUsuario().get(i).getNick())){
+            i++;
+        }
+        
+        
+        
         if(!emailnuevo.isEmpty() && (contraseña.isEmpty() && contraseñanueva.isEmpty() && contraseñanueva1.isEmpty())){
-            bp.cambio(emailnuevo);
+            
+            Usuario u2 = nc.listarUsuario().get(i);
+            u2.setEmail(emailnuevo);
+          
+            ncar.actualizarEmail(u2);
             return "PaginaHome.xhtml";
         }else if(contraseña.isEmpty() || contraseñanueva.isEmpty() || contraseñanueva1.isEmpty()){
             
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Los campos están vacíos"));
             return null;
              
-        }else if(!contraseña.equals(ch.getUsuario().getPassword())){
+        }else if(!contraseña.equals(nc.listarUsuario().get(i).getPassword())){
              FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("La contraseña introducida no es la correcta"));
              return null;
         }else if(!contraseñanueva.equals(contraseñanueva1)){
@@ -112,11 +151,23 @@ public class Ajustes implements Serializable{
             return null;
         }else{
             if(emailnuevo.isEmpty()){
-                   bp.intercambiar(contraseñanueva);
+                     Usuario u1 = nc.listarUsuario().get(i);
+                     u1.setPassword(contraseñanueva);
+                     ncar.actualizarPassword(u1);
                    return "PaginaHome.xhtml"; 
             }else{
-                   bp.cambio(emailnuevo);
-                   bp.intercambiar(contraseñanueva);
+                     
+                     Usuario u2 = nc.listarUsuario().get(i);
+                     u2.setEmail(emailnuevo);
+                     ncar.actualizarEmail(u2);
+                     
+                    
+                     
+                     
+                     Usuario u1 = nc.listarUsuario().get(i);
+                     u1.setPassword(contraseñanueva);
+                     ncar.actualizarPassword(u1);
+                     
                    return "PaginaHome.xhtml"; 
         }
           
@@ -125,6 +176,21 @@ public class Ajustes implements Serializable{
         }
          
        
+    }
+ 
+    public Usuario usuarioB(){
+        
+        Usuario user = ncar.buscarUsuario(ch.getUsuario().getNick());
+        
+        return user;
+    }
+
+    public NegocioCarlosLocal getNc() {
+        return nc;
+    }
+
+    public void setNc(NegocioCarlosLocal nc) {
+        this.nc = nc;
     }
     
             

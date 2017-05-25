@@ -10,7 +10,9 @@ package ControlVistaHome;
 import BeanPrincipal.BeanPrincipal;
 import com.uma.diariosur.entidades.Periodista;
 import com.uma.diariosur.entidades.Usuario;
+import com.uma.diariosur.negocio.NegocioPabloLocal;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -35,6 +37,12 @@ public class Login {
     private BeanPrincipal bnp;
     private List<Usuario> usuarios;
     private List<Periodista>periodistas;
+    
+    @EJB
+    private NegocioPabloLocal np;
+    
+    
+    
     
     public List<Usuario> getUsuarios() {
         return usuarios;
@@ -110,76 +118,42 @@ public class Login {
     public Login() {
     }
     
-    public String autenticar(){
-           usuarios = bnp.getUsuarios();
-           periodistas = bnp.getPeriodistas();
-           encontrado = false;
-           int tam = usuarios.size();
-           int tam2= periodistas.size();
-           int i = 0;
-           int j = 0;
-        
-        if(this.usuario.isEmpty() || this.contrasenia.isEmpty()){
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error" , "Rellene los dos campos por favor");
-            FacesContext.getCurrentInstance().addMessage("login:pass", message);
-            return null;
-        }
-           
-           
-        //comprobamos primero si es usuario normal
-        while(i<tam && !encontrado){
-            //recorremos la lista buscando al usuario
-            if(usuarios.get(i).getNick().equals(this.usuario)){
-                encontrado = true;
-                
-                if(usuarios.get(i).getPassword().equals(this.contrasenia)){
-                    // usuario y contraseña correcto
-                    ctrlhome.setUsuario(usuarios.get(i));
-                  
-                }else{
-                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error" , "Usuario-Contraseña incorrecto");
-                    FacesContext.getCurrentInstance().addMessage("login:pass", message);
-                    return null;
-            }
-                
-            }
-            
-            i++;
-        }
-        
-        
-        
-        this.periodista=this.usuario;
-        //comprobamos si es periodista
-        while(j<tam2 && !encontrado){
-            //recorremos la lista buscando al usuario
-            if(periodistas.get(j).getNombre().equals(this.periodista)){
-                encontrado = true; 
-                
-                if(periodistas.get(j).getPassword().equals(this.contrasenia)){
-                    // usuario y contraseña correcto
-                   ctrlhome.setPeriodista(periodistas.get(j));
-                  
-            }  else{
-                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error" , "Usuario-Contraseña incorrecto");
-                    FacesContext.getCurrentInstance().addMessage("login:pass", message);
-                    return null;
-                }
-            }
-            
-            j++;
-        }
-        
-        
-        
-        if(!encontrado){
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error" , "El nombre de usuario no existe");
-            FacesContext.getCurrentInstance().addMessage("login:usuario", message);
-            return null;
-        }else{
-            return ctrlhome.home();
-        }    
-    }
+  public String autenticar(){
+
+       //si no hay datos introducidos en el formulario
+       if(this.usuario.isEmpty() || this.contrasenia.isEmpty()){
+           FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error" , "Rellene los dos campos por favor");
+           FacesContext.getCurrentInstance().addMessage("login:pass", message);
+           return null;
+       }
+       //buscamos al usuario
+           Periodista peri = np.buscarPeriodista(this.usuario, this.contrasenia);
+           Usuario user= np.buscarUsuario(this.usuario,this.contrasenia);
+       //si lo encuentra le dara el control al tipo que sea
+
+        if(peri!=null){
+           ctrlhome.setPeriodista(peri);
+       }
+
+       if(user!=null){
+            ctrlhome.setUsuario(user);
+       }
+
+
+       //si no es que los datos no coinciden 
+       if(peri==null && user==null){
+
+           FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error" , "Credenciales incorrectas");
+           FacesContext.getCurrentInstance().addMessage("login:pass", message);
+           return null;
+       }
+
+           return ctrlhome.home();
+
+
+
+
+   }
     }
 
 /*

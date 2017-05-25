@@ -11,9 +11,9 @@ import com.uma.diariosur.entidades.Evento;
 import com.uma.diariosur.entidades.Megusta;
 import com.uma.diariosur.entidades.Usuario;
 import com.uma.diariosur.entidades.Valoracion;
+import com.uma.diariosur.negocio.NegocioCarmenLocal;
 import com.uma.diariosur.negocio.NegocioCarlosLocal;
 import com.uma.diariosur.negocio.NegocioCarmenLocal;
-
 import com.uma.diariosur.negocio.NegocioStevenLocal;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -54,16 +54,11 @@ public class PruebaBean implements Serializable{
     private MapModel geoModel;
     private String centerGeoMap = "41.850033, -87.6500523";
     
-    
+    @EJB
+    private NegocioCarmenLocal ncar; 
     @EJB
     private NegocioStevenLocal ns;
-    
-    @EJB 
-    private NegocioCarlosLocal ncar;
-    
-    @EJB
-    private NegocioCarmenLocal nc;
-
+   
     public MapModel getGeoModel() {
         return geoModel;
     }
@@ -204,7 +199,7 @@ public class PruebaBean implements Serializable{
         boolean encontrado = false;
         for(Megusta m: ctrh.getUsuario().getMegusta()){
             if(m.getUsuario().getNick().equals(ctrh.getUsuario().getNick())){
-                if(m.getEvento().getNombre().equals(eve.getNombre())){
+                if(m.getEvento().getId() == eve.getId()){
                      encontrado=true;
                  }
             }
@@ -219,9 +214,13 @@ public class PruebaBean implements Serializable{
         
       else{
           Megusta me = new Megusta();
+          
           me.setEvento(eve);
           me.setUsuario(ctrh.getUsuario());
-          nc.crearMegusta(me);
+
+          
+          ncar.crearMegusta(me);
+
           
           FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "" , "Añadido evento a mis MeGusta");
           FacesContext.getCurrentInstance().addMessage("pm:bm", message);
