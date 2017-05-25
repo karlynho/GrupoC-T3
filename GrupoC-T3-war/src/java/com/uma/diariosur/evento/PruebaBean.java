@@ -27,6 +27,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import org.hibernate.Hibernate;
 import org.primefaces.event.RateEvent;
 import org.primefaces.event.map.GeocodeEvent;
 import org.primefaces.model.map.DefaultMapModel;
@@ -40,14 +41,12 @@ import org.primefaces.model.map.Marker;
  */
 @Named(value = "pruebaBean")
 @SessionScoped
-
-
 public class PruebaBean implements Serializable{
     @Inject
     private BeanPrincipal ctreve;
     @Inject
     private ControlHome ctrh;
-    private List<Valoracion> val = new ArrayList<Valoracion>();
+    private List<Valoracion> val;
     private Integer rating2; 
     private Integer ratinguser;
     private String text;
@@ -117,10 +116,8 @@ public class PruebaBean implements Serializable{
     }
     
     public List<Valoracion> comentarios() {
-       
-        
+        val = new ArrayList<>();
         val = consultaV(ctrh.getEventoV()); 
-   
         return val;
     }
 
@@ -138,7 +135,7 @@ public class PruebaBean implements Serializable{
             return null;
         }
         
-        Usuario u = ncar.listarUsuario().get(0);
+        
         
         Valoracion var = new Valoracion();
         var.setComentario(text);

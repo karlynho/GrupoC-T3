@@ -11,7 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -39,11 +38,9 @@ public class Megusta implements Serializable {
     private Integer id;
     
     @ManyToOne (cascade = CascadeType.MERGE)
-    @JoinColumn(name="Evento_ID", referencedColumnName= "ID")
     private Evento evento;
     
     @ManyToOne (cascade = CascadeType.MERGE)
-   // @JoinColumn(name="Usuario_Nick", referencedColumnName= "Nick")
     private Usuario usuario;
 
     public static long getSerialVersionUID() {

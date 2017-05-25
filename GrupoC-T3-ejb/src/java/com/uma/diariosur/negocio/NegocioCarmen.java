@@ -136,8 +136,6 @@ public class NegocioCarmen implements NegocioCarmenLocal {
     @Override
     public void actualizarPassword(Usuario u){
         
-        
-        
              UserTransaction userTxn = sessionContext.getUserTransaction();
           
         
@@ -150,25 +148,30 @@ public class NegocioCarmen implements NegocioCarmenLocal {
         } catch(Throwable e){
             try {
                 userTxn.rollback(); //-- Include this in try-catch 
-=======
-
+            }    catch (IllegalStateException ex) {
+                     Logger.getLogger(NegocioCarmen.class.getName()).log(Level.SEVERE, null, ex);
+                 } catch (SecurityException ex) {
+                     Logger.getLogger(NegocioCarmen.class.getName()).log(Level.SEVERE, null, ex);
+                 } catch (SystemException ex) {
+                     Logger.getLogger(NegocioCarmen.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+        }
+    }
 
     @Override
-    public void crearMegusta(Megusta m) {
-        UserTransaction userTxn = sessionContext.getUserTransaction();
+    public Usuario buscarUsuario(String nick){
+        
+        Usuario user = em.find(Usuario.class, nick);
+        
+        if(user== null){
+            return null;
+        }else{
+            return user;
+        }
+    }
 
-        try {
-            userTxn.begin();
-            em.persist(m);
-            userTxn.commit();
 
-        } catch (Throwable e) {
-            try {
-                //userTxn.rollback(); //-- Include this in try-catch 
-            } catch (SystemException ex) {
-                Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
-            }
-  }
+    
         
         
         

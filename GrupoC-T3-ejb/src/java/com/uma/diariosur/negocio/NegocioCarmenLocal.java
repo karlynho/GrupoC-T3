@@ -20,14 +20,10 @@ public interface NegocioCarmenLocal {
 
     void crearMegusta(Megusta m);
     List<Megusta> listarMegusta();
-
     void eliminarMegusta(Megusta e);
-
     void actualizarEmail(Usuario u);
-
     void actualizarPassword(Usuario u);
-
-    void crearMegusta(Megusta m);
+    Usuario buscarUsuario(String nick);
     
     
 }

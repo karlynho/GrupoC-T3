@@ -62,10 +62,8 @@ public class Evento implements Serializable {
     private Double precio;
     private String ubicacion;
 
-    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "evento")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "evento", fetch = FetchType.EAGER)
     private List<Megusta> meGusta;
-    
-   
     @OneToMany(cascade = CascadeType.MERGE, mappedBy = "evento")
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Valoracion> valoraciones;
@@ -80,6 +78,7 @@ public class Evento implements Serializable {
 
 
     public Evento (){
+       
         
     }
 
