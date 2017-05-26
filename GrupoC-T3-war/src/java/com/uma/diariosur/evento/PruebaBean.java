@@ -51,6 +51,7 @@ public class PruebaBean implements Serializable{
     private String text;
     private MapModel geoModel;
     private String centerGeoMap = "41.850033, -87.6500523";
+    private List<Megusta> listmegusta;
     
     @EJB
     private NegocioCarmenLocal ncar; 
@@ -74,8 +75,6 @@ public class PruebaBean implements Serializable{
     }
     
     
-
-  
     public List<Valoracion> getVal() {
         return val;
     }
@@ -186,14 +185,24 @@ public class PruebaBean implements Serializable{
     public String MeGusta(Evento eve){
         
         boolean encontrado = false;
-        for(Megusta m: ctrh.getUsuario().getMegusta()){
+        List<Megusta> lista = new ArrayList();
+        listmegusta = ncar.listarMegusta();
+        
+        for(Megusta m: listmegusta){
             if(m.getUsuario().getNick().equals(ctrh.getUsuario().getNick())){
-                if(m.getEvento().getNombre().equalsIgnoreCase(eve.getNombre())){
-                     encontrado=true;
-                 }
+                lista.add(m);
             }
             
         }
+
+        
+        for(Megusta m: lista ){
+            if(m.getEvento().getId().equals(eve.getId())){
+                encontrado = true;
+            }
+        }
+        
+   
   
       if(encontrado){
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso" , "Este evento ya lo añadiste a Mis MeGusta");
@@ -232,14 +241,7 @@ public class PruebaBean implements Serializable{
         }
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
+   
     public boolean precio(Evento e){
         if(e.getPrecio()>0){
             return true;
