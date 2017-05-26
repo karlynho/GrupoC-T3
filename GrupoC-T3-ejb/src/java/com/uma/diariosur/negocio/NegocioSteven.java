@@ -29,6 +29,7 @@ import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
@@ -62,47 +63,54 @@ public class NegocioSteven implements NegocioStevenLocal {
         Query query3 = null;
 
         if (!ubicacion.isEmpty()) {
-            query = em.createQuery("select e from Evento e where e.ubicacion like "+ "concat('%', concat(:Ubicacion))");
-            query.setParameter("Ubicacion",ubicacion);
+            query = em.createQuery("select e from Evento e where e.ubicacion like " + "concat('%', concat(:Ubicacion))");
+            query.setParameter("Ubicacion", ubicacion);
         }
 
         List<Evento> even = new ArrayList();
         even = query.getResultList();
 
+        List<Evento> even2 = new ArrayList();
         if (!categoria.isEmpty()) {
             query2 = em.createQuery("SELECT e FROM Evento e WHERE e.categoria = :Categoria");
             query2.setParameter("Categoria", categoria);
+            even2 = query2.getResultList();
         }
-        List<Evento> even2 = new ArrayList();
-        even2 = query2.getResultList();
 
-        
-          List<Evento> newList=null;
-        if(even.isEmpty() || even2.isEmpty()){
-           newList = ListUtils.sum(even, even2);
-        }else{
+        List<Evento> newList = new ArrayList();
+        if (even.isEmpty() || even2.isEmpty()) {
+            newList = ListUtils.sum(even, even2);
+        } else {
             newList = ListUtils.intersection(even, even2);
         }
-        
-        boolean bueno = false;
-        if ((fecha != null)) {
-            query3 = em.createQuery("SELECT e FROM Evento e WHERE e.fecha_inicio = :Fecha");
-            query3.setParameter("Fecha", fecha);
-            bueno = true;
-        }
+
         List<Evento> even3 = new ArrayList();
-        
-        
-        if(bueno){
-              even3 = query3.getResultList();
+        if ((fecha != null)) {
+
+            query3 = em.createQuery("SELECT e from Evento e");
+            even3 = query3.getResultList();
         }
+
+        int i = 0;
+        List<Evento> even4 = new ArrayList();
+        while (i < even3.size()) {
+
+            if (even3.get(i).getFecha_inicio().getDay() == fecha.getDay() && even3.get(i).getFecha_inicio().getMonth() == fecha.getMonth()
+                    && even3.get(i).getFecha_inicio().getYear() == fecha.getYear() && fecha != null) {
+               
+
+                even4.add(even3.get(i));
+            }
+            i++;
+        }
+
         
-           List<Evento> newList2=null;
-        
-        if(even3.isEmpty() || newList.isEmpty())
-            newList2 = ListUtils.sum(newList, even3);
-        else{
-            newList2 = ListUtils.intersection(newList, even3);
+        List<Evento> newList2 = new ArrayList();
+
+        if (even4.isEmpty() || newList.isEmpty()) {
+            newList2 = ListUtils.sum(newList, even4);
+        } else {
+            newList2 = ListUtils.intersection(newList, even4);
         }
         return newList2;
 

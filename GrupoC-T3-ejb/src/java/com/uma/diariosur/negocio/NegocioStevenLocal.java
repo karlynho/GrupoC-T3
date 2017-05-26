@@ -7,6 +7,7 @@ package com.uma.diariosur.negocio;
 
 import com.uma.diariosur.entidades.Evento;
 import com.uma.diariosur.entidades.Valoracion;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -20,5 +21,6 @@ public interface NegocioStevenLocal {
     List<Evento> listarEventos();
     List<Valoracion> listarValoraciones();
     void insertarValoracion(Valoracion var);
+    List<Evento> filtrarEventos(String ubicacion, Date fecha, String evento);
     
 }

@@ -25,6 +25,8 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -284,7 +286,7 @@ public class ControlHome implements Serializable{
 
     public String verEvento(Evento e){   
        int i = 0;
-       int j= 0;
+    
       
        Evento ev = new Evento();
         ev=e;
@@ -312,6 +314,7 @@ public class ControlHome implements Serializable{
        while(i<7 && !Novalidos.isEmpty()){
            validos.add(Novalidos.get(0));
            Novalidos.remove(0);
+           i++;
            
        }
        

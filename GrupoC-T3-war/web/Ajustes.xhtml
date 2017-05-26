@@ -22,7 +22,7 @@
         <p:growl id="growl" life="2000" />
         
  
-        <p:commandButton value="Volver a pagina principal" id="volver_home" action="#{ajustes.home()}" ajax="false" />
+        <p:commandButton value="Volver a pagina principal" id="volver_home" action="#{controlHome.rehacer()}" ajax="false" />
       <p:commandButton value="Cerrar sesión" id="cerrar" action="#{ajustes.cerrarSesion()}" ajax="false" style="right: 80px; float: right" />
       </h:form>
          
@@ -69,7 +69,7 @@
             
              <h:panelGrid columns="2" cellpadding="5" style="padding-left: 709px; top: 650px; position: absolute">
                  <p:commandButton id="Aplicar" value="Aplicar" action="#{ajustes.comprueba()}" ajax="false"/>
-                 <p:commandButton id="Cancelar" value="Cancelar" action="#{ajustes.home()}" ajax="false"/>
+                 <p:commandButton id="Cancelar" value="Cancelar" action="#{controlHome.rehacer()}" ajax="false"/>
                </h:panelGrid>
             
              <h:panelGrid columns="1">

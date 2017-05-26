@@ -799,6 +799,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${libs.javaee-endorsed-api-7.0.classpath}" todir="${build.classes.dir}"/>
         <copyfiles files="${libs.jpa2-persistence.classpath}" todir="${build.classes.dir}"/>
         <copyfiles files="${libs.jpa20-persistence.classpath}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.commons-collections4-4.1.jar}" todir="${build.classes.dir}"/>
     </target>
     <target if="is.server.weblogic" name="-library-inclusion-in-archive-weblogic">
         <basename file="${libs.javaee-api-7.0.classpath}" property="manifest.libs.javaee-api-7.0.classpath"/>
@@ -807,14 +808,16 @@ exists or setup the property manually. For example like this:
         <basename file="${libs.javaee-endorsed-api-7.0.classpath}" property="manifest.libs.javaee-endorsed-api-7.0.classpath"/>
         <basename file="${libs.jpa2-persistence.classpath}" property="manifest.libs.jpa2-persistence.classpath"/>
         <basename file="${libs.jpa20-persistence.classpath}" property="manifest.libs.jpa20-persistence.classpath"/>
+        <basename file="${file.reference.commons-collections4-4.1.jar}" property="manifest.file.reference.commons-collections4-4.1.jar"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Extension-List" value="jar-1 jar-2 jar-3 jar-4 jar-5 jar-6 "/>
+            <attribute name="Extension-List" value="jar-1 jar-2 jar-3 jar-4 jar-5 jar-6 jar-7 "/>
             <attribute name="jar-1-Extension-Name" value="${manifest.libs.javaee-api-7.0.classpath}"/>
             <attribute name="jar-2-Extension-Name" value="${manifest.libs.hibernate4-persistence.classpath}"/>
             <attribute name="jar-3-Extension-Name" value="${manifest.libs.javaee-web-api-7.0.classpath}"/>
             <attribute name="jar-4-Extension-Name" value="${manifest.libs.javaee-endorsed-api-7.0.classpath}"/>
             <attribute name="jar-5-Extension-Name" value="${manifest.libs.jpa2-persistence.classpath}"/>
             <attribute name="jar-6-Extension-Name" value="${manifest.libs.jpa20-persistence.classpath}"/>
+            <attribute name="jar-7-Extension-Name" value="${manifest.file.reference.commons-collections4-4.1.jar}"/>
         </manifest>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
@@ -824,6 +827,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${libs.javaee-endorsed-api-7.0.classpath}" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.jpa2-persistence.classpath}" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.jpa20-persistence.classpath}" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.commons-collections4-4.1.jar}" todir="${dist.ear.dir}/lib"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update"/>
     </target>
     <target name="-copy-meta-inf">

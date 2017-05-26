@@ -39,6 +39,8 @@ import org.hibernate.annotations.LazyCollectionOption;
      
      @NamedQuery(name="lista.eventos",query="SELECT e FROM Evento e "),
      
+    
+     
  })
 
 
