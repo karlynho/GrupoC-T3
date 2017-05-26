@@ -6,17 +6,8 @@
 package com.uma.diariosur.negocio;
 
 import com.uma.diariosur.entidades.Evento;
-import com.uma.diariosur.entidades.Formulario;
-import com.uma.diariosur.entidades.Imagen;
 import com.uma.diariosur.entidades.Valoracion;
-import java.sql.Statement;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
