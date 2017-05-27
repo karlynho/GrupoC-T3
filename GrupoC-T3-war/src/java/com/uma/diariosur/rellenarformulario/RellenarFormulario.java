@@ -247,7 +247,6 @@ public class RellenarFormulario implements Serializable{
                         form.setFecha_inicio(fecha_inicio);
                         form.setFecha_fin(fecha_fin);
                         form.setUsuario(ctrlhome.getUsuario());
-                        form.setEstado("pendiente");
                         form.setFecha_subida(new Date());
                         form.setIm_id(im);
                         nc.crearFormulario(form);

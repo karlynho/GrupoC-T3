@@ -37,7 +37,6 @@ public class Formulario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private String estado;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date fecha_subida;
     private String nombre;
@@ -94,15 +93,6 @@ public class Formulario implements Serializable {
     
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
-    }
-
-    
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
     }
 
     public Date getFecha_subida() {

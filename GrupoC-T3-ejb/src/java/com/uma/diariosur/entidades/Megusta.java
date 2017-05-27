@@ -39,11 +39,9 @@ public class Megusta implements Serializable {
     private Integer id;
     
     @ManyToOne (cascade = CascadeType.MERGE)
-    
     private Evento evento;
     
     @ManyToOne (cascade = CascadeType.MERGE)
-   
     private Usuario usuario;
 
     public static long getSerialVersionUID() {

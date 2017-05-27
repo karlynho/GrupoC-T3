@@ -19,8 +19,9 @@ import javax.ejb.Local;
 public interface NegocioStevenLocal {
      
     List<Evento> listarEventos();
+    List<Evento> filtrarEventos(String ubicacion, Date fecha, String categoria);
     List<Valoracion> listarValoraciones();
     void insertarValoracion(Valoracion var);
-    List<Evento> filtrarEventos(String ubicacion, Date fecha, String evento);
-    
+
+
 }
