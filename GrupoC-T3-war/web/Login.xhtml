@@ -71,6 +71,7 @@
             </c:when>
             <c:otherwise>
                 <p>Debe salir de la aplicación si quiere entrar como otro usuario</p>
+                <h:commandLink action="#{controlHome.logout()}" value="Cerrar Sesion"/>
             </c:otherwise>
         </c:choose>
     </h:body>

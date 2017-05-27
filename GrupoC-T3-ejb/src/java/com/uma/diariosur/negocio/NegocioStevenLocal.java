@@ -22,4 +22,6 @@ public interface NegocioStevenLocal {
     List<Evento> filtrarEventos(String ubicacion, Date fecha, String categoria);
     List<Valoracion> listarValoraciones();
     void insertarValoracion(Valoracion var);
+
+
 }
