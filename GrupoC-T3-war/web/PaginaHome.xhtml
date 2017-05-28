@@ -94,6 +94,9 @@
                                     <h:outputText value="#{evento.nombre}"/>
                                     <h:outputText value="#{evento.ubicacion}"/>
                                     <h:commandLink action="#{controlHome.verEvento(evento)}" value="VER EVENTO"/>
+                                    <c:if test="#{!empty controlHome.periodista}">
+                                    <h:commandLink action="#{controlHome.borrarEvento(evento)}" value="BORRAR EVENTO"/>
+                                    </c:if>
                             </h:panelGrid>
                         </p:dataGrid>
                     </c:if>

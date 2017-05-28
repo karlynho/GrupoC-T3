@@ -9,7 +9,6 @@ package com.uma.diariosur.evento;
 import ControlVistaHome.ControlHome;
 import com.uma.diariosur.entidades.Evento;
 import com.uma.diariosur.entidades.Megusta;
-import com.uma.diariosur.entidades.Usuario;
 import com.uma.diariosur.entidades.Valoracion;
 import com.uma.diariosur.negocio.NegocioCarmenLocal;
 import com.uma.diariosur.negocio.NegocioCarlosLocal;
@@ -27,7 +26,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import org.hibernate.Hibernate;
 import org.primefaces.event.RateEvent;
 import org.primefaces.event.map.GeocodeEvent;
 import org.primefaces.model.map.DefaultMapModel;
@@ -57,6 +55,8 @@ public class PruebaBean implements Serializable{
     private NegocioCarmenLocal ncar; 
     @EJB
     private NegocioStevenLocal ns;
+    @EJB
+    private NegocioCarlosLocal nc;
    
     public MapModel getGeoModel() {
         return geoModel;
@@ -249,6 +249,11 @@ public class PruebaBean implements Serializable{
         else{
             return false;
         }
+    }
+    
+    public String borrarValoracion(Valoracion v){
+        nc.eliminarValoracion(v);
+        return null;
     }
     
     /**

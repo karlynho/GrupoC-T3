@@ -10,6 +10,7 @@ import com.uma.diariosur.entidades.Evento;
 import com.uma.diariosur.entidades.Periodista;
 import com.uma.diariosur.entidades.Usuario;
 import com.uma.diariosur.entidades.Valoracion;
+import com.uma.diariosur.negocio.NegocioCarlosLocal;
 import com.uma.diariosur.negocio.NegocioSteven;
 import com.uma.diariosur.negocio.NegocioStevenLocal;
 
@@ -83,7 +84,16 @@ public class ControlHome implements Serializable{
     
     @EJB
     private NegocioStevenLocal ns;
-    
+    @EJB
+    private NegocioCarlosLocal nc;
+
+    public NegocioCarlosLocal getNc() {
+        return nc;
+    }
+
+    public void setNc(NegocioCarlosLocal nc) {
+        this.nc = nc;
+    }
     
      public List<Evento> getEventos() {
          eventos = ns.listarEventos();
@@ -358,7 +368,11 @@ public class ControlHome implements Serializable{
         return "Megusta.xhtml";
     }
     
-    
+    public String borrarEvento(Evento e){
+        
+        nc.eliminarEvento(e);
+        return null;
+    }
     
     
     /**

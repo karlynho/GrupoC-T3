@@ -10,6 +10,7 @@ import com.uma.diariosur.entidades.Formulario;
 import com.uma.diariosur.entidades.Imagen;
 import com.uma.diariosur.entidades.Periodista;
 import com.uma.diariosur.entidades.Usuario;
+import com.uma.diariosur.entidades.Valoracion;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -30,5 +31,6 @@ public interface NegocioCarlosLocal {
     void crearUsuario(Usuario u);
     void crearEvento(Evento f);
     void actualizarUsuario(Usuario u);
-
+    void eliminarEvento(Evento e);
+    void eliminarValoracion(Valoracion v);
 }

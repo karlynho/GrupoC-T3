@@ -44,13 +44,13 @@ public class Usuario implements Serializable {
     private String password;
     
 
-    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "usuario")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "usuario", orphanRemoval = true)
     private List<Valoracion> valoraciones;
     
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "usuario", orphanRemoval = true)
     private List<Formulario> formulario;
     
-    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "usuario")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "usuario", orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Megusta> megusta;
 

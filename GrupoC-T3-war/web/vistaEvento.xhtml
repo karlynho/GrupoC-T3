@@ -147,6 +147,11 @@
                         <h:panelGrid columns="1" style="width: 100%;" id="coment">
                             <h:outputText value="Usuario: #{com.usuario.nombre}" style="width: 100%"/>
                             <h:outputText value="#{com.comentario}"/>
+                            <c:if test="#{!empty controlHome.periodista}">
+                                <h:form>
+                                    <h:commandLink action="#{pruebaBean.borrarValoracion(com)}" value="BORRAR COMENTARIO"/>
+                                </h:form>
+                            </c:if>
                             <h:form>
                                 <p:rating value="#{com.puntuacion}" stars="5" cancel="false" readonly="true"  />
                             </h:form>

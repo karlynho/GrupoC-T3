@@ -101,16 +101,8 @@ public class RellenarFormulario implements Serializable{
             img_aux = filename;
             InputStream input = img.getInputstream();
 
-            
-           
-            URL location = getClass().getProtectionDomain().getCodeSource().getLocation();
-            
-            
+            // RUTA CON WILDFLY
             String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
-        //    String path_aux = path.substring(0, path.lastIndexOf("build"));
-            
-            
-            
             OutputStream output = new FileOutputStream(new File(path.concat("//resources"), filename));
             aux_ext = ext;
         

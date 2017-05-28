@@ -81,9 +81,7 @@ public class NegocioCarlos implements NegocioCarlosLocal {
     @Override
     public void rechazarFormulario(Formulario f) {
     
-      //  Formulario f_entity = em.find(Formulario.class, id);
-        Imagen img = em.find(Imagen.class, f.getIm_id().getId());
-        
+     
        UserTransaction userTxn = sessionContext.getUserTransaction();
         try {
             userTxn.begin();
@@ -270,6 +268,55 @@ public class NegocioCarlos implements NegocioCarlosLocal {
                 Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
             }
   }
+    }
+
+    @Override
+    public void eliminarEvento(Evento e) {
+        UserTransaction userTxn = sessionContext.getUserTransaction();
+        try {
+            userTxn.begin();
+            em.remove(em.contains(e) ? e : em.merge(e));
+            userTxn.commit();
+        } catch (NotSupportedException ex) {
+            Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SystemException ex) {
+            Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (RollbackException ex) {
+            Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (HeuristicMixedException ex) {
+            Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (HeuristicRollbackException ex) {
+            Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SecurityException ex) {
+            Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalStateException ex) {
+            Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+    }
+
+    @Override
+    public void eliminarValoracion(Valoracion v) {
+        UserTransaction userTxn = sessionContext.getUserTransaction();
+        try {
+            userTxn.begin();
+            em.remove(em.contains(v) ? v : em.merge(v));
+            userTxn.commit();
+        } catch (NotSupportedException ex) {
+            Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SystemException ex) {
+            Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (RollbackException ex) {
+            Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (HeuristicMixedException ex) {
+            Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (HeuristicRollbackException ex) {
+            Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SecurityException ex) {
+            Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalStateException ex) {
+            Logger.getLogger(NegocioCarlos.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
         
  

@@ -61,15 +61,15 @@ public class Evento implements Serializable {
     private Double precio;
     private String ubicacion;
 
-    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "evento")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "evento")
     private List<Megusta> meGusta;
     
-    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "evento")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "evento")
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Valoracion> valoraciones;
     
     
-    @OneToOne(optional = false, cascade = {CascadeType.MERGE})
+    @OneToOne(optional = false, cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name="imagen", referencedColumnName = "id_m")
     private Imagen imagen;
     
