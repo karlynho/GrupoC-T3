@@ -95,6 +95,8 @@ public class Formulario implements Serializable {
         this.usuario = usuario;
     }
 
+
+
     public Date getFecha_subida() {
         return fecha_subida;
     }
