@@ -15,7 +15,7 @@ import javax.inject.Named;
   
 @SessionScoped
 @Named(value = "dataScrollerView")
-public class DataScrollerView implements Serializable {
+public class VerFormularios implements Serializable {
     @EJB
     private NegocioCarlosLocal nc;
     @Inject
@@ -43,7 +43,7 @@ public class DataScrollerView implements Serializable {
         this.ctrlhome = ctrlhome;
     }
   
-    public DataScrollerView() {
+    public VerFormularios() {
         
     }
 

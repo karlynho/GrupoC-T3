@@ -41,7 +41,7 @@ import org.primefaces.model.map.Marker;
  */
 @Named(value = "pruebaBean")
 @SessionScoped
-public class PruebaBean implements Serializable{
+public class VistaEvento implements Serializable{
    
     @Inject
     private ControlHome ctrh;
@@ -254,7 +254,7 @@ public class PruebaBean implements Serializable{
     /**
      * Creates a new instance of ControlHome
      */
-    public PruebaBean() {
+    public VistaEvento() {
         geoModel = new DefaultMapModel();
     }
     
