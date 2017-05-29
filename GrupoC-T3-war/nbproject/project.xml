@@ -25,6 +25,7 @@
                 <library dirs="200">
                     <file>${file.reference.start-1.0.10.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
+                    
                 </library>
                 <library dirs="200">
                     <file>${libs.hibernate4-persistence.classpath}</file>
