@@ -1,12 +1,9 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 *** GENERATED FROM project.xml - DO NOT EDIT  ***
 ***         EDIT ../build.xml INSTEAD         ***
-
 For the purpose of easier reading the script
 is divided into following sections:
-
   - initialization
   - compilation
   - dist
@@ -14,7 +11,6 @@ is divided into following sections:
   - debugging
   - javadoc
   - cleanup
-
         -->
 <project xmlns:ejbjarproject1="http://www.netbeans.org/ns/j2ee-ejbjarproject/1" xmlns:ejbjarproject2="http://www.netbeans.org/ns/j2ee-ejbjarproject/2" xmlns:ejbjarproject3="http://www.netbeans.org/ns/j2ee-ejbjarproject/3" basedir=".." default="default" name="GrupoC-T3-ejb-impl">
     <import file="ant-deploy.xml"/>

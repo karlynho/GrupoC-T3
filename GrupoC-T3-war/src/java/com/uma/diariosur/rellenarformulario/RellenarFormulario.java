@@ -275,7 +275,7 @@ public class RellenarFormulario implements Serializable{
                     
                     
            
-                return "PaginaHome.xhtml";
+                return ctrlhome.rehacer();
         }
         
        

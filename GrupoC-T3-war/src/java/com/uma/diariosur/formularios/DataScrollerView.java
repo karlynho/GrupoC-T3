@@ -49,7 +49,7 @@ public class DataScrollerView implements Serializable {
 
     
     public String home(){
-        return "PaginaHome.xhtml";
+        return ctrlhome.rehacer();
     }
     
     public String validar(Formulario f){
