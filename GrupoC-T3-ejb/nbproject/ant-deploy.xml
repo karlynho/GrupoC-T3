@@ -46,4 +46,3 @@ Contributor(s):
         <fail message="Undeploy is not supported for the current target server"/>
     </target>
 </project>
-
