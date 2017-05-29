@@ -96,6 +96,7 @@ public class Formulario implements Serializable {
     }
 
 
+
     public Date getFecha_subida() {
         return fecha_subida;
     }

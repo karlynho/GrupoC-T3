@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 *** GENERATED FROM project.xml - DO NOT EDIT  ***
@@ -801,6 +802,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${libs.jpa20-persistence.classpath}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.commons-collections4-4.1.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.commons-collections4-4.1.jar-1}" todir="${build.classes.dir}"/>
+
     </target>
     <target if="is.server.weblogic" name="-library-inclusion-in-archive-weblogic">
         <basename file="${libs.javaee-api-7.0.classpath}" property="manifest.libs.javaee-api-7.0.classpath"/>
@@ -813,6 +815,7 @@ exists or setup the property manually. For example like this:
         <basename file="${file.reference.commons-collections4-4.1.jar-1}" property="manifest.file.reference.commons-collections4-4.1.jar-1"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
             <attribute name="Extension-List" value="jar-1 jar-2 jar-3 jar-4 jar-5 jar-6 jar-7 jar-8 "/>
+
             <attribute name="jar-1-Extension-Name" value="${manifest.libs.javaee-api-7.0.classpath}"/>
             <attribute name="jar-2-Extension-Name" value="${manifest.libs.hibernate4-persistence.classpath}"/>
             <attribute name="jar-3-Extension-Name" value="${manifest.libs.javaee-web-api-7.0.classpath}"/>
@@ -821,6 +824,7 @@ exists or setup the property manually. For example like this:
             <attribute name="jar-6-Extension-Name" value="${manifest.libs.jpa20-persistence.classpath}"/>
             <attribute name="jar-7-Extension-Name" value="${manifest.file.reference.commons-collections4-4.1.jar}"/>
             <attribute name="jar-8-Extension-Name" value="${manifest.file.reference.commons-collections4-4.1.jar-1}"/>
+
         </manifest>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
@@ -832,6 +836,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${libs.jpa20-persistence.classpath}" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.commons-collections4-4.1.jar}" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.commons-collections4-4.1.jar-1}" todir="${dist.ear.dir}/lib"/>
+
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update"/>
     </target>
     <target name="-copy-meta-inf">
