@@ -95,7 +95,10 @@
                                     <h:outputText value="#{evento.ubicacion}"/>
                                     <h:commandLink action="#{controlHome.verEvento(evento)}" value="VER EVENTO"/>
                                     <c:if test="#{!empty controlHome.periodista}">
-                                    <h:commandLink action="#{controlHome.borrarEvento(evento)}" value="BORRAR EVENTO"/>
+                                        <h:form>
+                                            <p:commandButton icon="ui-icon-trash" action="#{controlHome.borrarEvento(evento)}" value="Borrar Evento" />
+                                        </h:form>
+<!--                                    <h:commandLink action="#{controlHome.borrarEvento(evento)}" value="BORRAR EVENTO"/>-->
                                     </c:if>
                             </h:panelGrid>
                         </p:dataGrid>
