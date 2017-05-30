@@ -18,9 +18,8 @@ import com.uma.diariosur.negocio.NegocioStevenLocal;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -109,6 +108,7 @@ public class VistaEvento implements Serializable{
     public List<Valoracion> comentarios() {
         val = new ArrayList<>();
         val = consultaV(ctrh.getEventoV()); 
+        Collections.reverse(val);
         return val;
     }
 
