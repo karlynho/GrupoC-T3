@@ -85,7 +85,7 @@ public class CreacionDeEventos implements Serializable {
         eventosFiltrados = ns.filtrarEventos(ubicacion, fecha, categoria);
 
         if (eventosFiltrados.isEmpty()) {
-            ctrlhome.setEventosFiltrados(ctrlhome.getListaEventosVacia());
+            
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No hay coincidencias con el filtro");
             FacesContext.getCurrentInstance().addMessage("controlHome:principal", message);
             return null;
