@@ -52,31 +52,44 @@ public class NegocioSteven implements NegocioStevenLocal {
         Query query = null;
         Query query2 = null;
         Query query3 = null;
+        boolean entra = true;
+        List<Evento> newList = new ArrayList();
+        List<Evento> even = new ArrayList();
+        List<Evento> listaVacia = new ArrayList();
 
-        if (!ubicacion.isEmpty()) {
+        if (!ubicacion.equalsIgnoreCase(" ")) {
             query = em.createQuery("select e from Evento e where e.ubicacion like " + "concat('%', concat(:Ubicacion))");
             query.setParameter("Ubicacion", ubicacion);
+            even = query.getResultList();
         }
 
-        List<Evento> even = new ArrayList();
-        even = query.getResultList();
+        if (!ubicacion.equalsIgnoreCase(" ") && query.getResultList().isEmpty()) {
+            entra = false;
+
+        }
 
         List<Evento> even2 = new ArrayList();
-        if (!categoria.isEmpty()) {
+
+        if (!categoria.isEmpty() && entra) {
             query2 = em.createQuery("SELECT e FROM Evento e WHERE e.categoria = :Categoria");
             query2.setParameter("Categoria", categoria);
             even2 = query2.getResultList();
-        }
 
-        List<Evento> newList = new ArrayList();
-        if (even.isEmpty() || even2.isEmpty()) {
-            newList = ListUtils.sum(even, even2);
-        } else {
-            newList = ListUtils.intersection(even, even2);
+            if (even.isEmpty() || even2.isEmpty()) {
+                if (!categoria.equalsIgnoreCase(" ") && query2.getResultList().isEmpty()) {
+                    entra = false;
+
+                } else {
+                    newList = ListUtils.sum(even, even2);
+                }
+
+            } else {
+                newList = ListUtils.intersection(even, even2);
+            }
         }
 
         List<Evento> even3 = new ArrayList();
-        if ((fecha != null)) {
+        if ((fecha != null) && entra) {
 
             query3 = em.createQuery("SELECT e from Evento e");
             even3 = query3.getResultList();
@@ -88,21 +101,24 @@ public class NegocioSteven implements NegocioStevenLocal {
 
             if (even3.get(i).getFecha_inicio().getDay() == fecha.getDay() && even3.get(i).getFecha_inicio().getMonth() == fecha.getMonth()
                     && even3.get(i).getFecha_inicio().getYear() == fecha.getYear() && fecha != null) {
-               
 
                 even4.add(even3.get(i));
             }
             i++;
         }
 
-        
         List<Evento> newList2 = new ArrayList();
 
-        if (even4.isEmpty() || newList.isEmpty()) {
-            newList2 = ListUtils.sum(newList, even4);
+        if (fecha != null && even4.isEmpty()) {
+            newList2 = listaVacia;
         } else {
-            newList2 = ListUtils.intersection(newList, even4);
+            if (even4.isEmpty() || newList.isEmpty()) {
+                newList2 = ListUtils.sum(newList, even4);
+            } else {
+                newList2 = ListUtils.intersection(newList, even4);
+            }
         }
+
         return newList2;
 
     }
