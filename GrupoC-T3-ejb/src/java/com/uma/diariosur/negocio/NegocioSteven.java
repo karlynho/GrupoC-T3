@@ -70,7 +70,7 @@ public class NegocioSteven implements NegocioStevenLocal {
 
         List<Evento> even2 = new ArrayList();
 
-        if (!categoria.isEmpty()&& entra) {
+        if (!categoria.isEmpty() && entra) {
             query2 = em.createQuery("SELECT e FROM Evento e WHERE e.categoria = :Categoria");
             query2.setParameter("Categoria", categoria);
             even2 = query2.getResultList();
@@ -109,11 +109,16 @@ public class NegocioSteven implements NegocioStevenLocal {
 
         List<Evento> newList2 = new ArrayList();
 
-        if (even4.isEmpty() || newList.isEmpty()) {
-            newList2 = ListUtils.sum(newList, even4);
+        if (fecha != null && even4.isEmpty()) {
+            newList2 = listaVacia;
         } else {
-            newList2 = ListUtils.intersection(newList, even4);
+            if (even4.isEmpty() || newList.isEmpty()) {
+                newList2 = ListUtils.sum(newList, even4);
+            } else {
+                newList2 = ListUtils.intersection(newList, even4);
+            }
         }
+
         return newList2;
 
     }
